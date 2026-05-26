@@ -10,32 +10,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
   <style>
     /* =============================================
-       DESIGN TOKENS — Aurora Frontier
+       DESIGN TOKENS — Aurora Frontier  [PURPLE PRIMARY + GOLD DETAILS]
     ============================================= */
     :root {
-      --void:        #04050a;
-      --void-2:      #080c14;
-      --void-3:      #0d1220;
-      --surface:     #111827;
-      --surface-2:   #1a2235;
-      --border:      rgba(100,200,255,0.1);
-      --border-2:    rgba(100,200,255,0.2);
+      --void:        #04030a;
+      --void-2:      #07050f;
+      --void-3:      #0c0918;
+      --surface:     #100d1c;
+      --surface-2:   #18142a;
 
-      --text:        #e8f4ff;
-      --text-2:      #7a9bbb;
-      --text-3:      #3a546a;
+      /* Borders agora em roxo */
+      --border:      rgba(140,80,220,0.12);
+      --border-2:    rgba(140,80,220,0.22);
 
-      /* Neon cyan — primary accent */
-      --cyan:        #00d4ff;
-      --cyan-dim:    rgba(0,212,255,0.10);
-      --cyan-glow:   rgba(0,212,255,0.30);
+      --text:        #f2ead8;
+      --text-2:      #9080a0;
+      --text-3:      #4a3860;
 
-      /* Violet — secondary accent */
-      --violet:      #a855f7;
-      --violet-dim:  rgba(168,85,247,0.12);
-      --violet-glow: rgba(168,85,247,0.30);
+      /* Roxo neon — COR PRIMÁRIA (substitui --cyan em botões, bordas, ícones, partículas) */
+      --cyan:        #9b30f7;
+      --cyan-dim:    rgba(155,48,247,0.12);
+      --cyan-glow:   rgba(155,48,247,0.35);
 
-      /* Amber — danger/boss */
+      /* Dourado — apenas em detalhes (logo, título hero, números de status) */
+      --gold:        #f0b429;
+      --gold-dim:    rgba(240,180,41,0.10);
+      --gold-glow:   rgba(240,180,41,0.35);
+
+      /* Violeta mais claro — hover/destaques secundários */
+      --violet:      #c084fc;
+      --violet-dim:  rgba(192,132,252,0.12);
+      --violet-glow: rgba(192,132,252,0.30);
+
+      /* Amber — danger/boss difficulty badges */
       --amber:       #f59e0b;
       --amber-dim:   rgba(245,158,11,0.12);
 
@@ -90,7 +97,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 clamp(16px, 5vw, 48px);
-      background: rgba(4,5,10,0.75);
+      background: rgba(4,3,10,0.75);
       backdrop-filter: blur(18px) saturate(1.5);
       border-bottom: 1px solid var(--border);
       transition: background 0.3s;
@@ -110,13 +117,16 @@
     .nav-logo .logo-icon {
       width: 32px; height: 32px;
       border-radius: 6px;
+      /* Ícone da nav: gradiente roxo */
       background: linear-gradient(135deg, var(--cyan), var(--violet));
       display: flex; align-items: center; justify-content: center;
       font-size: 16px;
       flex-shrink: 0;
+      box-shadow: 0 0 12px var(--cyan-glow);
     }
+    /* DOURADO: apenas na logo/texto do título */
     .logo-af {
-      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      background: linear-gradient(90deg, var(--gold), #e8a020, var(--cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -138,6 +148,7 @@
       transition: color 0.2s;
       padding: 6px 4px;
     }
+    /* Links do nav em roxo no hover */
     .nav-links a:hover { color: var(--cyan); }
 
     /* Language toggle */
@@ -165,12 +176,13 @@
       min-width: 36px;
       min-height: 28px;
     }
+    /* Botão ativo em roxo */
     .lang-btn.active {
       background: linear-gradient(135deg, var(--cyan), var(--violet));
-      color: var(--void);
+      color: #fff;
     }
 
-    /* CTA button nav */
+    /* CTA button nav — roxo */
     .btn-nav {
       background: transparent;
       border: 1px solid var(--cyan);
@@ -188,7 +200,7 @@
     }
     .btn-nav:hover {
       background: var(--cyan);
-      color: var(--void);
+      color: #fff;
       box-shadow: 0 0 24px var(--cyan-glow);
     }
 
@@ -222,7 +234,7 @@
       display: none;
       position: fixed;
       top: var(--nav-h); left: 0; right: 0;
-      background: rgba(8,12,20,0.98);
+      background: rgba(7,5,15,0.98);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 99;
@@ -248,12 +260,19 @@
       transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--cyan); }
+    .mobile-menu a:last-of-type { border-bottom: none; }
     .mobile-menu-bottom {
       display: flex; align-items: center; justify-content: space-between;
       padding-top: 20px;
       gap: 12px;
+      flex-wrap: wrap;
     }
     .mobile-menu-bottom .lang-toggle { scale: 1.1; }
+    /* Botão Play Now no mobile menu — roxo */
+    .mobile-menu-bottom .btn-primary {
+      font-size: 0.75rem;
+      padding: 10px 20px;
+    }
 
     /* =============================================
        HERO SECTION
@@ -279,18 +298,18 @@
       filter: brightness(0.4) saturate(1.3);
     }
 
-    /* Atmospheric overlays */
+    /* Atmospheric overlays — roxo dominante, dourado sutil */
     .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,212,255,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(168,85,247,0.12) 0%, transparent 55%),
-        linear-gradient(to top, rgba(4,5,10,0.95) 0%, rgba(4,5,10,0.3) 50%, rgba(4,5,10,0.2) 100%);
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(155,48,247,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(155,48,247,0.14) 0%, transparent 55%),
+        linear-gradient(to top, rgba(4,3,10,0.95) 0%, rgba(4,3,10,0.3) 50%, rgba(4,3,10,0.2) 100%);
     }
 
-    /* Scan lines effect */
+    /* Scan lines com tom roxo */
     .hero-bg::before {
       content: '';
       position: absolute;
@@ -299,21 +318,21 @@
         0deg,
         transparent,
         transparent 2px,
-        rgba(0,212,255,0.015) 2px,
-        rgba(0,212,255,0.015) 4px
+        rgba(155,48,247,0.015) 2px,
+        rgba(155,48,247,0.015) 4px
       );
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Floating grid lines */
+    /* Grid lines roxo */
     .hero-grid {
       position: absolute;
       inset: 0;
       z-index: 1;
       background-image:
-        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(155,48,247,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(155,48,247,0.05) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
     }
@@ -326,6 +345,7 @@
       padding-bottom: clamp(60px, 10vw, 100px);
     }
 
+    /* Eyebrow badge — roxo */
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -337,10 +357,10 @@
       text-transform: uppercase;
       color: var(--cyan);
       margin-bottom: clamp(16px, 3vw, 24px);
-      border: 1px solid rgba(0,212,255,0.25);
+      border: 1px solid rgba(155,48,247,0.35);
       padding: 7px 14px;
       border-radius: 99px;
-      background: rgba(0,212,255,0.06);
+      background: rgba(155,48,247,0.08);
       backdrop-filter: blur(8px);
     }
     .eyebrow-dot {
@@ -364,12 +384,13 @@
       color: var(--text);
       margin-bottom: clamp(8px, 2vw, 16px);
     }
+    /* DOURADO: palavra de destaque do título Hero */
     .hero-title .glow-word {
-      background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 100%);
+      background: linear-gradient(135deg, var(--gold) 0%, #e8a020 50%, #f0b429 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 40px rgba(0,212,255,0.4));
+      filter: drop-shadow(0 0 40px rgba(240,180,41,0.5));
     }
 
     .hero-subtitle {
@@ -387,12 +408,13 @@
       flex-wrap: wrap;
     }
 
+    /* Botão primário — ROXO (sem dourado) */
     .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: linear-gradient(135deg, var(--cyan), var(--violet));
-      color: var(--void);
+      background: linear-gradient(135deg, var(--cyan), #7c22d4, var(--violet));
+      color: #fff;
       font-family: var(--font-display);
       font-weight: 700;
       font-size: clamp(0.75rem, 2vw, 0.9rem);
@@ -406,19 +428,20 @@
       transition: all 0.25s;
       position: relative;
       overflow: hidden;
+      white-space: nowrap;
     }
     .btn-primary::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
       opacity: 0;
       transition: opacity 0.2s;
     }
     .btn-primary:hover::before { opacity: 1; }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(0,212,255,0.4), 0 0 0 1px rgba(0,212,255,0.3);
+      box-shadow: 0 8px 40px rgba(155,48,247,0.5), 0 0 0 1px rgba(155,48,247,0.4);
     }
 
     .btn-secondary {
@@ -439,6 +462,7 @@
       cursor: pointer;
       transition: all 0.25s;
       backdrop-filter: blur(8px);
+      white-space: nowrap;
     }
     .btn-secondary:hover {
       border-color: var(--violet);
@@ -447,6 +471,7 @@
       transform: translateY(-2px);
     }
 
+    /* DOURADO: números da seção hero */
     .hero-stats {
       position: absolute;
       bottom: clamp(20px, 5vw, 48px);
@@ -463,9 +488,10 @@
       font-family: var(--font-display);
       font-size: clamp(1.3rem, 3.5vw, 2.2rem);
       font-weight: 900;
-      color: var(--cyan);
+      /* DOURADO nos números de status */
+      color: var(--gold);
       line-height: 1;
-      text-shadow: 0 0 24px var(--cyan-glow);
+      text-shadow: 0 0 24px var(--gold-glow);
     }
     .hero-stat-label {
       font-size: clamp(0.62rem, 1.5vw, 0.72rem);
@@ -502,6 +528,7 @@
       text-transform: uppercase;
       color: var(--text-3);
     }
+    /* Linha scroll em roxo */
     .scroll-line {
       width: 1px;
       height: 32px;
@@ -527,6 +554,7 @@
       padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 60px);
     }
 
+    /* Section label — roxo */
     .section-label {
       font-family: var(--font-display);
       font-size: 0.68rem;
@@ -569,7 +597,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: clamp(16px, 2vw, 24px);
     }
 
@@ -583,6 +611,7 @@
       transition: border-color 0.3s, transform 0.3s;
       cursor: default;
     }
+    /* Linha topo — roxo */
     .feature-card::before {
       content: '';
       position: absolute;
@@ -592,20 +621,22 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
+    /* Mouse glow — roxo */
     .feature-card::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(0,212,255,0.04), transparent 50%);
+      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(155,48,247,0.06), transparent 50%);
       pointer-events: none;
     }
+    /* Hover border — roxo */
     .feature-card:hover {
-      border-color: rgba(0,212,255,0.3);
+      border-color: rgba(155,48,247,0.35);
       transform: translateY(-4px);
     }
     .feature-card:hover::before { opacity: 1; }
 
-    .feature-card.violet-card:hover { border-color: rgba(168,85,247,0.3); }
+    .feature-card.violet-card:hover { border-color: rgba(192,132,252,0.35); }
     .feature-card.violet-card::before {
       background: linear-gradient(90deg, transparent, var(--violet), transparent);
     }
@@ -614,6 +645,7 @@
       background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
+    /* Ícones das mecânicas — roxo */
     .feature-icon {
       width: 52px; height: 52px;
       border-radius: 12px;
@@ -622,8 +654,8 @@
       margin-bottom: 20px;
       position: relative;
     }
-    .feature-icon.cyan { background: var(--cyan-dim); border: 1px solid rgba(0,212,255,0.2); }
-    .feature-icon.violet { background: var(--violet-dim); border: 1px solid rgba(168,85,247,0.2); }
+    .feature-icon.cyan  { background: var(--cyan-dim);  border: 1px solid rgba(155,48,247,0.25); }
+    .feature-icon.violet { background: var(--violet-dim); border: 1px solid rgba(192,132,252,0.25); }
     .feature-icon.amber { background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.2); }
 
     .feature-title {
@@ -653,7 +685,6 @@
       margin-bottom: clamp(36px, 6vw, 60px);
     }
 
-    /* Masonry-ish grid */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -682,7 +713,7 @@
     .gallery-item-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(4,5,10,0.85) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(4,3,10,0.88) 0%, transparent 55%);
       display: flex;
       align-items: flex-end;
       padding: clamp(14px, 2.5vw, 20px);
@@ -690,6 +721,7 @@
       transition: opacity 0.3s;
     }
     .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    /* Tag da galeria — roxo */
     .gallery-item-tag {
       font-family: var(--font-display);
       font-size: 0.65rem;
@@ -697,8 +729,8 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--cyan);
-      background: rgba(0,212,255,0.1);
-      border: 1px solid rgba(0,212,255,0.25);
+      background: rgba(155,48,247,0.12);
+      border: 1px solid rgba(155,48,247,0.30);
       padding: 5px 12px;
       border-radius: 99px;
     }
@@ -735,9 +767,10 @@
       transition: transform 0.3s, border-color 0.3s;
       position: relative;
     }
+    /* Hover do boss card — roxo */
     .boss-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(245,158,11,0.4);
+      border-color: rgba(155,48,247,0.40);
     }
     .boss-card-img {
       width: 100%;
@@ -771,9 +804,9 @@
       z-index: 1;
     }
     .diff-legend { background: rgba(82,229,138,0.15); color: #52e58a; border: 1px solid rgba(82,229,138,0.3); }
-    .diff-rare { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
-    .diff-myth { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
-    .diff-god { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .diff-rare   { background: rgba(155,48,247,0.15); color: #c084fc; border: 1px solid rgba(155,48,247,0.3); }
+    .diff-myth   { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .diff-god    { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
 
     .boss-card-body {
       padding: clamp(18px, 3vw, 24px);
@@ -796,6 +829,7 @@
     .boss-stats {
       display: flex;
       gap: 16px;
+      flex-wrap: wrap;
     }
     .boss-stat-item {
       display: flex;
@@ -809,11 +843,12 @@
       color: var(--text-3);
       font-weight: 600;
     }
+    /* DOURADO nos números de HP/stats dos bosses */
     .bsi-val {
       font-family: var(--font-display);
       font-size: 0.82rem;
       font-weight: 700;
-      color: var(--amber);
+      color: var(--gold);
     }
 
     /* =============================================
@@ -828,8 +863,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(168,85,247,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(0,212,255,0.08) 0%, transparent 50%);
+        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(155,48,247,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(155,48,247,0.08) 0%, transparent 50%);
     }
 
     .join-inner {
@@ -844,12 +879,12 @@
     .join-icon {
       width: 80px; height: 80px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(0,212,255,0.2));
-      border: 1px solid rgba(168,85,247,0.3);
+      background: linear-gradient(135deg, rgba(155,48,247,0.22), rgba(192,132,252,0.22));
+      border: 1px solid rgba(155,48,247,0.35);
       display: flex; align-items: center; justify-content: center;
       font-size: 36px;
       margin: 0 auto 28px;
-      box-shadow: 0 0 60px rgba(168,85,247,0.2);
+      box-shadow: 0 0 60px rgba(155,48,247,0.25), 0 0 30px rgba(155,48,247,0.12);
     }
 
     .join-title {
@@ -892,6 +927,7 @@
       border-radius: var(--radius);
       text-decoration: none;
       transition: all 0.25s;
+      white-space: nowrap;
     }
     .btn-discord:hover {
       background: #4752c4;
@@ -899,7 +935,7 @@
       box-shadow: 0 8px 40px rgba(88,101,242,0.5);
     }
 
-    /* Roblox button */
+    /* Roblox button — hover roxo */
     .btn-roblox {
       display: inline-flex;
       align-items: center;
@@ -916,6 +952,7 @@
       text-decoration: none;
       border: 1px solid var(--border-2);
       transition: all 0.25s;
+      white-space: nowrap;
     }
     .btn-roblox:hover {
       border-color: var(--cyan);
@@ -980,6 +1017,7 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
+    /* Hover links footer — roxo */
     .footer-links a:hover { color: var(--cyan); }
 
     .footer-copy {
@@ -994,7 +1032,7 @@
     }
 
     /* =============================================
-       FLOATING PARTICLES
+       FLOATING PARTICLES — roxo/violeta
     ============================================= */
     .particles {
       position: fixed;
@@ -1010,61 +1048,73 @@
       opacity: 0;
     }
     @keyframes floatParticle {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 0.5; }
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.5; }
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
     /* =============================================
-       RESPONSIVE — MOBILE OVERRIDES
+       GLOW LINE SEPARATOR — roxo
     ============================================= */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .btn-nav { display: none; }
-      .hamburger { display: flex; }
-
-      .hero-stats {
-        right: clamp(16px, 4vw, 32px);
-        gap: 12px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .g1, .g2, .g3, .g4, .g5 {
-        grid-column: auto;
-        grid-row: auto;
-        aspect-ratio: 16/9;
-      }
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(155,48,247,0.25), rgba(192,132,252,0.15), transparent);
+      margin: 0;
     }
 
-    @media (max-width: 580px) {
-      .hero-stats {
-        position: static;
-        flex-direction: row;
-        justify-content: flex-start;
-        margin-top: 28px;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-      .hero-stat { text-align: left; }
-      .stat-divider { height: 30px; }
+    /* =============================================
+       LOADING SCREEN
+    ============================================= */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: var(--void);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.6s, visibility 0.6s;
+    }
+    #loading.done { opacity: 0; visibility: hidden; }
 
-      .scroll-indicator { display: none; }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-      .g1, .g2, .g3, .g4, .g5 {
-        grid-column: 1;
-        grid-row: auto;
-      }
-
-      .join-icon { width: 64px; height: 64px; font-size: 28px; }
-
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .footer-links { flex-wrap: wrap; gap: 12px; }
+    /* DOURADO: logo da tela de loading */
+    .loading-logo {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold), #e8a020, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .loading-bar-track {
+      width: clamp(200px, 50vw, 320px);
+      height: 2px;
+      background: var(--surface);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    /* Barra de loading — roxo */
+    .loading-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      border-radius: 99px;
+      animation: loadBar 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes loadBar {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+    .loading-status {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
     }
 
     /* =============================================
@@ -1086,64 +1136,98 @@
     .reveal-delay-5 { transition-delay: 0.5s; }
 
     /* =============================================
-       GLOW LINE SEPARATOR
+       RESPONSIVE — TABLETS (max 900px)
     ============================================= */
-    .glow-line {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cyan-dim), var(--violet-dim), transparent);
-      margin: 0;
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .btn-nav   { display: none; }
+      .hamburger { display: flex; }
+
+      /* Hero stats ficam menos à direita */
+      .hero-stats {
+        right: clamp(16px, 4vw, 32px);
+        gap: 12px;
+      }
+
+      /* Gallery: 2 colunas */
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .g1, .g2, .g3, .g4, .g5 {
+        grid-column: auto;
+        grid-row: auto;
+        aspect-ratio: 16/9;
+      }
+
+      /* Bosses grid: 2 colunas */
+      .bosses-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     /* =============================================
-       LOADING SCREEN
+       RESPONSIVE — MOBILE (max 580px)
     ============================================= */
-    #loading {
-      position: fixed;
-      inset: 0;
-      background: var(--void);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      transition: opacity 0.6s, visibility 0.6s;
-    }
-    #loading.done { opacity: 0; visibility: hidden; }
+    @media (max-width: 580px) {
+      /* Hero stats saem do absolute e vão para o fluxo */
+      .hero-stats {
+        position: static;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 28px;
+        gap: 16px;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .hero-stat { text-align: left; }
+      .stat-divider { height: 30px; }
 
-    .loading-logo {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      background: linear-gradient(135deg, var(--cyan), var(--violet));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .loading-bar-track {
-      width: clamp(200px, 50vw, 320px);
-      height: 2px;
-      background: var(--surface);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .loading-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--violet));
-      border-radius: 99px;
-      animation: loadBar 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
-    }
-    @keyframes loadBar {
-      from { width: 0; }
-      to   { width: 100%; }
-    }
-    .loading-status {
-      font-family: var(--font-display);
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-3);
+      /* Hero content padding menor */
+      .hero-content {
+        padding-bottom: clamp(40px, 8vw, 60px);
+      }
+
+      .scroll-indicator { display: none; }
+
+      /* Gallery: 1 coluna */
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .g1, .g2, .g3, .g4, .g5 {
+        grid-column: 1;
+        grid-row: auto;
+        aspect-ratio: 16/9;
+      }
+
+      /* Bosses grid: 1 coluna */
+      .bosses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Join buttons: coluna única sem estourar */
+      .join-btns {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+      }
+      .btn-discord,
+      .btn-roblox {
+        justify-content: center;
+        padding: 16px 24px;
+        width: 100%;
+      }
+
+      .join-icon { width: 64px; height: 64px; font-size: 28px; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-links { flex-wrap: wrap; gap: 12px; }
+      .footer-copy  { text-align: left; }
+
+      /* Features grid: 1 coluna no mobile */
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1206,7 +1290,6 @@
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <!-- Hero image: fantasy anime landscape - using high-quality Picsum + Unsplash placeholder -->
     <img
       src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&q=80"
       alt="Aurora Frontier — World Map"
@@ -1265,7 +1348,7 @@
   <div class="section-inner">
     <div class="features-header reveal">
       <div class="section-label" data-en="// core_mechanics" data-pt="// mecânicas_principais">// core_mechanics</div>
-      <h2 class="section-title" data-en="Built for the<br>Relentless" data-pt="Feito para os<br>Implacáveis">Built for the<br>Relentless</h2>
+      <h2 class="section-title" data-en="Built for the Relentless" data-pt="Feito para os Implacáveis">Built for the Relentless</h2>
       <p class="section-desc" data-en="Aurora Frontier forges its combat around one truth: only the sharpest players survive. Every mechanic is designed to reward skill, speed, and creativity." data-pt="Aurora Frontier forja seu combate em torno de uma verdade: apenas os jogadores mais habilidosos sobrevivem. Cada mecânica é projetada para recompensar habilidade, velocidade e criatividade.">Aurora Frontier forges its combat around one truth: only the sharpest players survive. Every mechanic is designed to reward skill, speed, and creativity.</p>
     </div>
 
@@ -1316,7 +1399,7 @@
   <div class="section-inner">
     <div class="gallery-header reveal">
       <div class="section-label violet" data-en="// media_gallery" data-pt="// galeria_de_mídia">// media_gallery</div>
-      <h2 class="section-title" data-en="See the World<br>Unfold" data-pt="Veja o Mundo<br>se Revelar">See the World<br>Unfold</h2>
+      <h2 class="section-title" data-en="See the World Unfold" data-pt="Veja o Mundo se Revelar">See the World Unfold</h2>
     </div>
 
     <div class="gallery-grid">
@@ -1385,7 +1468,7 @@
   <div class="section-inner">
     <div class="bosses-header reveal">
       <div class="section-label" data-en="// elite_targets" data-pt="// alvos_elite">// elite_targets</div>
-      <h2 class="section-title" data-en="Your Most Wanted<br>Hunt List" data-pt="Sua Lista de<br>Caça Mais Procurada">Your Most Wanted<br>Hunt List</h2>
+      <h2 class="section-title" data-en="Your Most Wanted Hunt List" data-pt="Sua Lista de Caça Mais Procurada">Your Most Wanted Hunt List</h2>
       <p class="section-desc" data-en="These aren't just enemies — they're legends. Study their patterns. Learn their tells. Then go for the kill." data-pt="Estes não são apenas inimigos — são lendas. Estude seus padrões. Aprenda seus sinais. Depois vá para o abate.">These aren't just enemies — they're legends. Study their patterns. Learn their tells. Then go for the kill.</p>
     </div>
 
@@ -1545,37 +1628,37 @@
   });
 
   // ================================================
-  // LANGUAGE SYSTEM
+  // LANGUAGE SYSTEM — revisado e robusto
   // ================================================
   let currentLang = 'en';
 
   function setLang(lang) {
     currentLang = lang;
 
-    // Update all translatable elements
+    // Atualiza todos os elementos com data-en / data-pt
     document.querySelectorAll('[data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+      if (!val) return;
+
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+        el.placeholder = val;
+      } else if (val.includes('<br>')) {
+        el.innerHTML = val;
       } else {
-        const val = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
-        // Handle innerHTML for line breaks
-        if (val && val.includes('<br>')) {
-          el.innerHTML = val;
-        } else {
-          el.textContent = val;
-        }
+        el.textContent = val;
       }
     });
 
-    // Update lang buttons
+    // Atualiza botões de idioma — em TODOS os lang-toggles (nav + mobile)
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.remove('active');
-      if (btn.textContent.trim().toLowerCase() === lang) {
+      // Compara o texto do botão com o lang selecionado (case-insensitive)
+      if (btn.textContent.trim().toLowerCase() === lang.toLowerCase()) {
         btn.classList.add('active');
       }
     });
 
-    // Update html lang attribute
+    // Atualiza o atributo lang do HTML
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
   }
 
@@ -1589,14 +1672,27 @@
     const isOpen = mobileMenu.classList.contains('open');
     mobileMenu.classList.toggle('open', !isOpen);
     hamburger.classList.toggle('open', !isOpen);
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
   });
 
-  // Close on link click
+  // Fecha ao clicar em qualquer link do menu mobile
   mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
     });
+  });
+
+  // Fecha ao clicar fora do menu
+  document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('open') &&
+        !mobileMenu.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
   });
 
   // ================================================
@@ -1619,9 +1715,9 @@
   const mainNav = document.getElementById('main-nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
-      mainNav.style.background = 'rgba(4,5,10,0.95)';
+      mainNav.style.background = 'rgba(4,3,10,0.95)';
     } else {
-      mainNav.style.background = 'rgba(4,5,10,0.75)';
+      mainNav.style.background = 'rgba(4,3,10,0.75)';
     }
   }, { passive: true });
 
@@ -1630,10 +1726,12 @@
   // ================================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
-      const target = document.querySelector(anchor.getAttribute('href'));
+      const href = anchor.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
-        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 68;
+        const offset = 68; // --nav-h
         const top = target.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -1652,11 +1750,17 @@
   });
 
   // ================================================
-  // PARTICLES
+  // PARTICLES — roxo/violeta dominantes, sem dourado
   // ================================================
   function createParticles() {
     const container = document.getElementById('particles');
-    const colors = ['rgba(0,212,255,', 'rgba(168,85,247,', 'rgba(255,255,255,'];
+    // Somente tons de roxo/violeta nas partículas
+    const colors = [
+      'rgba(155,48,247,',
+      'rgba(192,132,252,',
+      'rgba(120,30,200,',
+      'rgba(180,100,255,'
+    ];
 
     for (let i = 0; i < 28; i++) {
       const p = document.createElement('div');
