@@ -1,130 +1,297 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurora Frontier — O RPG Definitivo no Roblox</title>
-
-  <!-- ======================================================
-       GOOGLE FONTS — Rajdhani (display gamer) + Outfit (body)
-  ====================================================== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- ======================================================
-       TAILWIND CSS via CDN
-  ====================================================== -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Rajdhani', 'sans-serif'],
-            body: ['Outfit', 'sans-serif'],
-          },
-          colors: {
-            base:    '#0f172a',
-            surface: '#111827',
-            card:    '#1a2235',
-            border:  '#1e3a5f',
-            cyan:    '#00f5ff',
-            blue:    '#3b82f6',
-            orange:  '#ff6b00',
-          },
-          boxShadow: {
-            'glow-cyan':   '0 0 20px rgba(0,245,255,0.35), 0 0 60px rgba(0,245,255,0.12)',
-            'glow-orange': '0 0 20px rgba(255,107,0,0.45), 0 0 60px rgba(255,107,0,0.15)',
-            'glow-blue':   '0 0 20px rgba(59,130,246,0.45), 0 0 60px rgba(59,130,246,0.15)',
-            'card-hover':  '0 8px 40px rgba(0,245,255,0.15)',
-          },
-          keyframes: {
-            pulse_cta: {
-              '0%, 100%': { boxShadow: '0 0 0 0 rgba(0,245,255,0.55)' },
-              '50%':       { boxShadow: '0 0 0 14px rgba(0,245,255,0)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%':       { transform: 'translateY(-8px)' },
-            },
-            scanline: {
-              '0%':   { backgroundPosition: '0 0' },
-              '100%': { backgroundPosition: '0 100%' },
-            },
-            fadeUp: {
-              '0%':   { opacity: '0', transform: 'translateY(30px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            glitch: {
-              '0%, 100%': { clipPath: 'inset(0 0 100% 0)' },
-              '20%':       { clipPath: 'inset(30% 0 40% 0)', transform: 'translate(-3px)' },
-              '40%':       { clipPath: 'inset(60% 0 10% 0)', transform: 'translate(3px)' },
-              '60%':       { clipPath: 'inset(10% 0 70% 0)', transform: 'translate(-2px)' },
-              '80%':       { clipPath: 'inset(80% 0 5% 0)',  transform: 'translate(2px)' },
-            },
-          },
-          animation: {
-            pulse_cta: 'pulse_cta 2s ease-in-out infinite',
-            float:     'float 4s ease-in-out infinite',
-            fadeUp:    'fadeUp 0.8s ease forwards',
-          },
-        },
-      },
-    };
-  </script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Frontier — Enter the Uncharted Realm</title>
+  <meta name="description" content="Aurora Frontier is an epic anime-inspired action RPG on Roblox. Dodge, hunt, and conquer colossal bosses in a fractured digital world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
   <style>
-    /* ── Base reset & globals ── */
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    /* =============================================
+       DESIGN TOKENS — Aurora Frontier
+    ============================================= */
+    :root {
+      --void:        #04050a;
+      --void-2:      #080c14;
+      --void-3:      #0d1220;
+      --surface:     #111827;
+      --surface-2:   #1a2235;
+      --border:      rgba(100,200,255,0.1);
+      --border-2:    rgba(100,200,255,0.2);
+
+      --text:        #e8f4ff;
+      --text-2:      #7a9bbb;
+      --text-3:      #3a546a;
+
+      /* Neon cyan — primary accent */
+      --cyan:        #00d4ff;
+      --cyan-dim:    rgba(0,212,255,0.10);
+      --cyan-glow:   rgba(0,212,255,0.30);
+
+      /* Violet — secondary accent */
+      --violet:      #a855f7;
+      --violet-dim:  rgba(168,85,247,0.12);
+      --violet-glow: rgba(168,85,247,0.30);
+
+      /* Amber — danger/boss */
+      --amber:       #f59e0b;
+      --amber-dim:   rgba(245,158,11,0.12);
+
+      --radius:    10px;
+      --radius-lg: 16px;
+      --nav-h:     68px;
+
+      --font-display: 'Orbitron', monospace;
+      --font-body:    'Exo 2', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
     body {
-      background-color: #0f172a;
-      font-family: 'Outfit', sans-serif;
-      color: #e2e8f0;
+      font-family: var(--font-body);
+      background: var(--void);
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* ── Noise texture overlay ── */
+    /* =============================================
+       SCROLLBAR
+    ============================================= */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 99px; }
+
+    /* =============================================
+       NOISE OVERLAY (global texture)
+    ============================================= */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.4;
+      opacity: 0.5;
     }
 
-    /* ── Scrollbar styling ── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #00f5ff44; border-radius: 2px; }
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(16px, 5vw, 48px);
+      background: rgba(4,5,10,0.75);
+      backdrop-filter: blur(18px) saturate(1.5);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
 
-    /* ── Gradient text utility ── */
-    .text-gradient-cyan {
-      background: linear-gradient(135deg, #00f5ff 0%, #3b82f6 50%, #a855f7 100%);
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .logo-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .logo-af {
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .text-gradient-orange {
-      background: linear-gradient(135deg, #ff6b00 0%, #ffb347 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(8px, 2vw, 28px);
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      padding: 6px 4px;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 99px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-3);
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 10px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 36px;
+      min-height: 28px;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: var(--void);
     }
 
-    /* ── Hero grid lines background ── */
-    .hero-grid {
-      background-image:
-        linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
+    /* CTA button nav */
+    .btn-nav {
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-nav:hover {
+      background: var(--cyan);
+      color: var(--void);
+      box-shadow: 0 0 24px var(--cyan-glow);
     }
 
-    /* ── Scanline effect on hero ── */
-    .scanlines::after {
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-2);
+      border-radius: 8px;
+      width: 42px; height: 42px;
+      align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.25s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: rgba(8,12,20,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      flex-direction: column;
+      padding: 24px 24px 32px;
+      gap: 8px;
+      animation: slideDown 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mobile-menu.open { display: flex; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mobile-menu a {
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--cyan); }
+    .mobile-menu-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 20px;
+      gap: 12px;
+    }
+    .mobile-menu-bottom .lang-toggle { scale: 1.1; }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.4) saturate(1.3);
+    }
+
+    /* Atmospheric overlays */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,212,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(168,85,247,0.12) 0%, transparent 55%),
+        linear-gradient(to top, rgba(4,5,10,0.95) 0%, rgba(4,5,10,0.3) 50%, rgba(4,5,10,0.2) 100%);
+    }
+
+    /* Scan lines effect */
+    .hero-bg::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -132,624 +299,1401 @@
         0deg,
         transparent,
         transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
+        rgba(0,212,255,0.015) 2px,
+        rgba(0,212,255,0.015) 4px
       );
       pointer-events: none;
-      z-index: 2;
+      z-index: 1;
     }
 
-    /* ── Animated glow border on cards ── */
-    .card-glow {
+    /* Floating grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+    }
+
+    .hero-content {
       position: relative;
-      border: 1px solid rgba(0,245,255,0.15);
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    }
-    .card-glow:hover {
-      border-color: rgba(0,245,255,0.5);
-      box-shadow: 0 8px 40px rgba(0,245,255,0.15);
-      transform: translateY(-4px);
+      z-index: 2;
+      width: 100%;
+      padding: clamp(40px, 8vw, 80px) clamp(20px, 6vw, 80px);
+      padding-bottom: clamp(60px, 10vw, 100px);
     }
 
-    /* ── Corner decorators on cards ── */
-    .card-corner::before,
-    .card-corner::after {
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: clamp(0.6rem, 1.5vw, 0.72rem);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: clamp(16px, 3vw, 24px);
+      border: 1px solid rgba(0,212,255,0.25);
+      padding: 7px 14px;
+      border-radius: 99px;
+      background: rgba(0,212,255,0.06);
+      backdrop-filter: blur(8px);
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--cyan-glow); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 6px transparent; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.6rem, 8vw, 6.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: clamp(8px, 2vw, 16px);
+    }
+    .hero-title .glow-word {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(0,212,255,0.4));
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 2.2vw, 1.2rem);
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.65;
+      max-width: 540px;
+      margin-bottom: clamp(28px, 5vw, 44px);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: var(--void);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: clamp(13px, 2.5vw, 16px) clamp(22px, 4vw, 32px);
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
       content: '';
       position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: #00f5ff;
-      border-style: solid;
-      opacity: 0.7;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
     }
-    .card-corner::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .card-corner::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-
-    /* ── CTA button pulse ── */
-    .btn-pulse { animation: pulse_cta 2s ease-in-out infinite; }
-
-    /* ── Header backdrop blur ── */
-    .header-glass {
-      background: rgba(15,23,42,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0,245,255,0.1);
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(0,212,255,0.4), 0 0 0 1px rgba(0,212,255,0.3);
     }
 
-    /* ── Gallery image hover ── */
-    .gallery-img {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: clamp(13px, 2.5vw, 16px) clamp(22px, 4vw, 32px);
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border-2);
+      cursor: pointer;
+      transition: all 0.25s;
+      backdrop-filter: blur(8px);
     }
-    .gallery-img:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(0,245,255,0.2);
+    .btn-secondary:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+      background: var(--violet-dim);
+      transform: translateY(-2px);
     }
 
-    /* ── Fade-up animation on scroll (JS-triggered) ── */
+    .hero-stats {
+      position: absolute;
+      bottom: clamp(20px, 5vw, 48px);
+      right: clamp(20px, 6vw, 80px);
+      z-index: 2;
+      display: flex;
+      gap: clamp(16px, 3vw, 32px);
+      align-items: flex-end;
+    }
+    .hero-stat {
+      text-align: right;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+      font-weight: 900;
+      color: var(--cyan);
+      line-height: 1;
+      text-shadow: 0 0 24px var(--cyan-glow);
+    }
+    .hero-stat-label {
+      font-size: clamp(0.62rem, 1.5vw, 0.72rem);
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border-2);
+      align-self: center;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: clamp(20px, 4vw, 36px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+    }
+    .scroll-indicator span {
+      font-family: var(--font-display);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.8); }
+    }
+
+    /* =============================================
+       SECTION COMMON
+    ============================================= */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 60px);
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .section-label.violet { color: var(--violet); }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: clamp(12px, 2vw, 20px);
+    }
+
+    .section-desc {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* =============================================
+       FEATURES SECTION
+    ============================================= */
+    #features {
+      background: linear-gradient(to bottom, var(--void), var(--void-2));
+    }
+
+    .features-header {
+      margin-bottom: clamp(40px, 8vw, 72px);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: clamp(16px, 2vw, 24px);
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 4vw, 36px);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(0,212,255,0.04), transparent 50%);
+      pointer-events: none;
+    }
+    .feature-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-4px);
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card.violet-card:hover { border-color: rgba(168,85,247,0.3); }
+    .feature-card.violet-card::before {
+      background: linear-gradient(90deg, transparent, var(--violet), transparent);
+    }
+    .feature-card.amber-card:hover { border-color: rgba(245,158,11,0.3); }
+    .feature-card.amber-card::before {
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .feature-icon.cyan { background: var(--cyan-dim); border: 1px solid rgba(0,212,255,0.2); }
+    .feature-icon.violet { background: var(--violet-dim); border: 1px solid rgba(168,85,247,0.2); }
+    .feature-icon.amber { background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.2); }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .feature-desc {
+      font-size: clamp(0.83rem, 2vw, 0.9rem);
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* =============================================
+       GALLERY SECTION
+    ============================================= */
+    #gallery {
+      background: var(--void-2);
+      overflow: hidden;
+    }
+
+    .gallery-header {
+      margin-bottom: clamp(36px, 6vw, 60px);
+    }
+
+    /* Masonry-ish grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: clamp(8px, 1.5vw, 16px);
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.3s;
+      filter: brightness(0.85) saturate(1.1);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1.3);
+    }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(4,5,10,0.85) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(14px, 2.5vw, 20px);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-tag {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.25);
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+
+    /* Grid layout positions */
+    .g1 { grid-column: 1 / 8; grid-row: 1; aspect-ratio: 16/9; }
+    .g2 { grid-column: 8 / 13; grid-row: 1; aspect-ratio: 9/8; }
+    .g3 { grid-column: 1 / 5; grid-row: 2; aspect-ratio: 4/3; }
+    .g4 { grid-column: 5 / 9; grid-row: 2; aspect-ratio: 4/3; }
+    .g5 { grid-column: 9 / 13; grid-row: 2; aspect-ratio: 4/3; }
+
+    /* =============================================
+       BOSSES SECTION
+    ============================================= */
+    #bosses {
+      background: linear-gradient(to bottom, var(--void-2), var(--void-3));
+    }
+
+    .bosses-header {
+      margin-bottom: clamp(36px, 6vw, 60px);
+    }
+
+    .bosses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(16px, 2.5vw, 24px);
+    }
+
+    .boss-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative;
+    }
+    .boss-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245,158,11,0.4);
+    }
+    .boss-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+    }
+    .boss-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8) saturate(1.2) hue-rotate(-5deg);
+      transition: transform 0.5s;
+    }
+    .boss-card:hover .boss-card-img img { transform: scale(1.06); }
+    .boss-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--surface) 0%, transparent 60%);
+    }
+    .boss-difficulty {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 99px;
+      z-index: 1;
+    }
+    .diff-legend { background: rgba(82,229,138,0.15); color: #52e58a; border: 1px solid rgba(82,229,138,0.3); }
+    .diff-rare { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+    .diff-myth { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .diff-god { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+    .boss-card-body {
+      padding: clamp(18px, 3vw, 24px);
+    }
+    .boss-name {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+    .boss-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .boss-stats {
+      display: flex;
+      gap: 16px;
+    }
+    .boss-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .bsi-label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      font-weight: 600;
+    }
+    .bsi-val {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+
+    /* =============================================
+       DISCORD / JOIN CTA SECTION
+    ============================================= */
+    #join {
+      position: relative;
+      overflow: hidden;
+    }
+    #join::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(168,85,247,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(0,212,255,0.08) 0%, transparent 50%);
+    }
+
+    .join-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: clamp(80px, 14vw, 140px) clamp(20px, 5vw, 60px);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .join-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(0,212,255,0.2));
+      border: 1px solid rgba(168,85,247,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 60px rgba(168,85,247,0.2);
+    }
+
+    .join-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .join-desc {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: clamp(32px, 6vw, 48px);
+    }
+
+    .join-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Discord button */
+    .btn-discord {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #5865F2;
+      color: white;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: clamp(14px,3vw,18px) clamp(24px,5vw,36px);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-discord:hover {
+      background: #4752c4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(88,101,242,0.5);
+    }
+
+    /* Roblox button */
+    .btn-roblox {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: clamp(14px,3vw,18px) clamp(24px,5vw,36px);
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border-2);
+      transition: all 0.25s;
+    }
+    .btn-roblox:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      transform: translateY(-2px);
+    }
+
+    .join-meta {
+      margin-top: 28px;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .join-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-3);
+    }
+    .join-meta-item span:first-child { font-size: 1em; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: var(--void-2);
+      border-top: 1px solid var(--border);
+      padding: clamp(32px, 6vw, 60px) clamp(20px, 5vw, 60px);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+    }
+    .footer-brand .logo-af { font-size: 1rem; }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-3);
+      width: 100%;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+
+    /* =============================================
+       FLOATING PARTICLES
+    ============================================= */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatParticle linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* =============================================
+       RESPONSIVE — MOBILE OVERRIDES
+    ============================================= */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .btn-nav { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-stats {
+        right: clamp(16px, 4vw, 32px);
+        gap: 12px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .g1, .g2, .g3, .g4, .g5 {
+        grid-column: auto;
+        grid-row: auto;
+        aspect-ratio: 16/9;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .hero-stats {
+        position: static;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 28px;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .hero-stat { text-align: left; }
+      .stat-divider { height: 30px; }
+
+      .scroll-indicator { display: none; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .g1, .g2, .g3, .g4, .g5 {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .join-icon { width: 64px; height: 64px; font-size: 28px; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-links { flex-wrap: wrap; gap: 12px; }
+    }
+
+    /* =============================================
+       ANIMATIONS — SCROLL REVEAL
+    ============================================= */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
     }
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
 
-    /* ── Radial ambient glows ── */
-    .ambient-cyan {
-      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,245,255,0.08) 0%, transparent 70%);
-    }
-    .ambient-orange {
-      background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,107,0,0.07) 0%, transparent 70%);
-    }
-
-    /* ── Section divider line ── */
-    .divider {
+    /* =============================================
+       GLOW LINE SEPARATOR
+    ============================================= */
+    .glow-line {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,245,255,0.3), transparent);
+      background: linear-gradient(90deg, transparent, var(--cyan-dim), var(--violet-dim), transparent);
+      margin: 0;
     }
 
-    /* ── Stat badge ── */
-    .stat-badge {
-      background: rgba(0,245,255,0.07);
-      border: 1px solid rgba(0,245,255,0.2);
+    /* =============================================
+       LOADING SCREEN
+    ============================================= */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: var(--void);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.6s, visibility 0.6s;
     }
+    #loading.done { opacity: 0; visibility: hidden; }
 
-    /* ── Alpha badge ── */
-    .alpha-badge {
-      background: linear-gradient(135deg, #ff6b00, #ff9500);
-      font-family: 'Rajdhani', sans-serif;
-      letter-spacing: 0.12em;
+    .loading-logo {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .loading-bar-track {
+      width: clamp(200px, 50vw, 320px);
+      height: 2px;
+      background: var(--surface);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .loading-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      border-radius: 99px;
+      animation: loadBar 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes loadBar {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+    .loading-status {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
     }
   </style>
 </head>
+<body>
 
-<body class="relative">
-
-<!-- ============================================================
-     HEADER — Fixo no topo
-============================================================ -->
-<header class="header-glass fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-
-    <!-- Logo -->
-    <div class="flex items-center gap-2">
-      <!-- Ícone decorativo do logo -->
-      <div class="w-7 h-7 relative flex-shrink-0">
-        <div class="absolute inset-0 bg-cyan opacity-20 rounded-sm rotate-45"></div>
-        <div class="absolute inset-1 bg-cyan opacity-60 rounded-sm rotate-12"></div>
-      </div>
-      <span class="font-display font-700 text-xl tracking-widest uppercase">
-        <span class="text-gradient-cyan">Aurora</span>
-        <span class="text-white ml-1">Frontier</span>
-      </span>
-    </div>
-
-    <!-- Botão Discord -->
-    <!-- =====================================================
-         SUBSTITUA O HREF ABAIXO PELO LINK DO SEU SERVIDOR DISCORD
-         Ex: href="https://discord.gg/SEU_INVITE_AQUI"
-    ===================================================== -->
-    <a href="https://discord.gg/SEU_INVITE_AQUI"
-       target="_blank" rel="noopener"
-       class="flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] text-white text-sm font-body font-500 px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-glow-blue active:scale-95">
-      <!-- Discord SVG icon -->
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
-      </svg>
-      Discord
-    </a>
-
+<!-- ===================== LOADING SCREEN ===================== -->
+<div id="loading">
+  <div class="loading-logo">AURORA FRONTIER</div>
+  <div class="loading-bar-track">
+    <div class="loading-bar-fill"></div>
   </div>
-</header>
-<!-- /HEADER -->
+  <div class="loading-status" data-en="Initializing world data..." data-pt="Inicializando dados do mundo...">Initializing world data...</div>
+</div>
 
+<!-- ===================== PARTICLES ===================== -->
+<div class="particles" id="particles"></div>
 
-<!-- ============================================================
-     HERO SECTION — A dobra principal
-============================================================ -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-grid scanlines pt-16">
+<!-- ===================== NAVIGATION ===================== -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">⚡</div>
+    <span class="logo-af">AURORA</span>&nbsp;FRONTIER
+  </a>
 
-  <!-- =====================================================
-       BACKGROUND DE MÍDIA DO HERO
-       OPÇÃO 1 — VÍDEO: Descomente o bloco abaixo e insira a URL do seu vídeo (.mp4)
-       OPÇÃO 2 — IMAGEM: O div #hero-bg-image já está pronto abaixo
-  ===================================================== -->
+  <ul class="nav-links">
+    <li><a href="#features" data-en="Features" data-pt="Mecânicas">Features</a></li>
+    <li><a href="#gallery" data-en="Gallery" data-pt="Galeria">Gallery</a></li>
+    <li><a href="#bosses" data-en="Bosses" data-pt="Bosses">Bosses</a></li>
+    <li><a href="#join" data-en="Community" data-pt="Comunidade">Community</a></li>
+  </ul>
 
-  <!--
-  <video
-    autoplay muted loop playsinline
-    class="absolute inset-0 w-full h-full object-cover opacity-30 z-0"
-    style="filter: saturate(1.2) brightness(0.6);">
-    <source src="URL_DO_SEU_VIDEO_AQUI.mp4" type="video/mp4" />
-  </video>
-  -->
-
-  <!-- =====================================================
-       INSIRA A IMAGEM DE FUNDO DO HERO AQUI
-       Substitua o background-color por: background-image: url('SUA_IMAGEM.jpg')
-       e ajuste opacity conforme necessário
-  ===================================================== -->
-  <div id="hero-bg-image"
-       class="absolute inset-0 z-0"
-       style="
-         background-color: #0a1628;
-         /* background-image: url('SUA_IMAGEM_EPICA_AQUI.jpg'); */
-         background-size: cover;
-         background-position: center;
-         opacity: 0.45;
-       ">
-  </div>
-  <!-- Placeholder visual enquanto não há imagem -->
-  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" id="hero-placeholder">
-    <div class="text-center opacity-10 select-none">
-      <p class="font-display text-8xl font-700 text-cyan tracking-widest">AF</p>
-      <p class="font-body text-sm text-slate-400 mt-2 tracking-widest uppercase">Insira seu background aqui</p>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="lang-pt" onclick="setLang('pt')">PT</button>
     </div>
+    <a href="#join" class="btn-nav" data-en="Play Now" data-pt="Jogar Agora">Play Now</a>
   </div>
 
-  <!-- Gradientes de profundidade sobre o bg -->
-  <div class="absolute inset-0 z-1 bg-gradient-to-b from-[#0f172a]/60 via-transparent to-[#0f172a]"></div>
-  <div class="absolute inset-0 z-1 ambient-cyan"></div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-  <!-- Conteúdo do Hero -->
-  <div class="relative z-10 w-full max-w-4xl mx-auto px-5 py-20 text-center">
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#features" data-en="Features" data-pt="Mecânicas">Features</a>
+  <a href="#gallery" data-en="Gallery" data-pt="Galeria">Gallery</a>
+  <a href="#bosses" data-en="Bosses" data-pt="Bosses">Bosses</a>
+  <a href="#join" data-en="Community" data-pt="Comunidade">Community</a>
+  <div class="mobile-menu-bottom">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('pt')">PT</button>
+    </div>
+    <a href="#join" class="btn-primary" data-en="Play Now →" data-pt="Jogar Agora →">Play Now →</a>
+  </div>
+</div>
 
-    <!-- Badge Alpha -->
-    <div class="inline-flex items-center gap-2 alpha-badge text-white text-xs font-700 tracking-widest uppercase px-3 py-1 rounded-full mb-6 shadow-glow-orange">
-      <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-      Em Desenvolvimento · Alpha
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <!-- Hero image: fantasy anime landscape - using high-quality Picsum + Unsplash placeholder -->
+    <img
+      src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&q=80"
+      alt="Aurora Frontier — World Map"
+      fetchpriority="high"
+    >
+  </div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span data-en="Now Available on Roblox" data-pt="Disponível Agora no Roblox">Now Available on Roblox</span>
     </div>
 
-    <!-- Título principal -->
-    <h1 class="font-display font-700 leading-none mb-5 text-white"
-        style="font-size: clamp(2.4rem, 9vw, 5.5rem); letter-spacing: -0.01em;">
-      <span class="text-gradient-cyan">Desperte seu Instinto.</span><br />
-      Conquiste a Fronteira.
+    <h1 class="hero-title">
+      <span data-en="Enter the" data-pt="Entre na">Enter the</span><br>
+      <span class="glow-word" data-en="Uncharted" data-pt="Fronteira">Uncharted</span><br>
+      <span data-en="Frontier" data-pt="Inexplorada">Frontier</span>
     </h1>
 
-    <!-- Subtítulo -->
-    <p class="font-body font-300 text-slate-300 mb-10 mx-auto"
-       style="font-size: clamp(1rem, 3vw, 1.25rem); max-width: 540px; line-height: 1.65;">
-      O RPG de ação definitivo no Roblox inspirado em
-      <span class="text-cyan font-500">Shangri-La Frontier</span>.
-    </p>
+    <p class="hero-subtitle" data-en="An anime-inspired action RPG where every battle tests your limits. Dodge unstoppable attacks, master custom weapons, and hunt the colossal bosses that guard the edge of the known world." data-pt="Um RPG de ação inspirado em anime onde cada batalha testa seus limites. Esquive ataques imparáveis, domine armas customizadas e caçe os bosses colossais que guardam a fronteira do mundo conhecido.">An anime-inspired action RPG where every battle tests your limits. Dodge unstoppable attacks, master custom weapons, and hunt the colossal bosses that guard the edge of the known world.</p>
 
-    <!-- CTA Principal -->
-    <!-- =====================================================
-         SUBSTITUA O HREF PELO LINK DO SEU DISCORD
-    ===================================================== -->
-    <a href="https://discord.gg/SEU_INVITE_AQUI"
-       target="_blank" rel="noopener"
-       class="btn-pulse inline-flex items-center gap-3 bg-cyan text-[#0f172a] font-display font-700 uppercase tracking-wider px-8 py-4 rounded-xl text-lg transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 shadow-glow-cyan">
-      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
-      </svg>
-      Junte-se à Comunidade
-    </a>
-
-    <!-- Stats badges -->
-    <div class="flex flex-wrap justify-center gap-3 mt-10">
-      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-cyan">
-        ⚔️ Combate em Tempo Real
-      </div>
-      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-slate-300">
-        🗺️ Mundo Aberto
-      </div>
-      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-slate-300">
-        🎮 100% Roblox
-      </div>
+    <div class="hero-ctas">
+      <a href="#join" class="btn-primary" data-en="▶ Play for Free" data-pt="▶ Jogar de Graça">▶ Play for Free</a>
+      <a href="#features" class="btn-secondary" data-en="Discover More" data-pt="Descobrir Mais">Discover More</a>
     </div>
 
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">12K+</div>
+        <div class="hero-stat-label" data-en="Players" data-pt="Jogadores">Players</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">48</div>
+        <div class="hero-stat-label" data-en="Unique Bosses" data-pt="Bosses Únicos">Unique Bosses</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label" data-en="Builds" data-pt="Builds">Builds</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Seta de scroll -->
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-    <svg class="w-6 h-6 text-cyan opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span data-en="Scroll" data-pt="Rolar">Scroll</span>
   </div>
-
 </section>
-<!-- /HERO SECTION -->
 
+<div class="glow-line"></div>
 
-<!-- ============================================================
-     SEÇÃO: SOBRE O JOGO — Mecânicas / Feature Cards
-============================================================ -->
-<section class="relative py-20 px-5 overflow-hidden" id="mecanicas">
-
-  <!-- Glow de fundo -->
-  <div class="absolute inset-0 pointer-events-none"
-       style="background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(59,130,246,0.05) 0%, transparent 70%);">
-  </div>
-
-  <div class="max-w-6xl mx-auto relative z-10">
-
-    <!-- Cabeçalho da seção -->
-    <div class="text-center mb-14 reveal">
-      <p class="font-body text-cyan text-sm font-500 tracking-widest uppercase mb-3">
-        — Mecânicas de Jogo —
-      </p>
-      <h2 class="font-display font-700 text-white leading-tight"
-          style="font-size: clamp(1.8rem, 6vw, 3rem);">
-        Cada Batalha é um
-        <span class="text-gradient-cyan"> Teste de Habilidade</span>
-      </h2>
-      <p class="font-body font-300 text-slate-400 mt-4 mx-auto" style="max-width: 480px; line-height: 1.7;">
-        Aurora Frontier não perdoa os despreparados. Aprenda os sistemas, domine as mecânicas e torne-se lendário.
-      </p>
+<!-- ===================== FEATURES ===================== -->
+<section id="features">
+  <div class="section-inner">
+    <div class="features-header reveal">
+      <div class="section-label" data-en="// core_mechanics" data-pt="// mecânicas_principais">// core_mechanics</div>
+      <h2 class="section-title" data-en="Built for the<br>Relentless" data-pt="Feito para os<br>Implacáveis">Built for the<br>Relentless</h2>
+      <p class="section-desc" data-en="Aurora Frontier forges its combat around one truth: only the sharpest players survive. Every mechanic is designed to reward skill, speed, and creativity." data-pt="Aurora Frontier forja seu combate em torno de uma verdade: apenas os jogadores mais habilidosos sobrevivem. Cada mecânica é projetada para recompensar habilidade, velocidade e criatividade.">Aurora Frontier forges its combat around one truth: only the sharpest players survive. Every mechanic is designed to reward skill, speed, and creativity.</p>
     </div>
 
-    <!-- Grid de Cards — 1 col mobile / 3 col desktop -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- ── CARD 1: Combate Dinâmico ── -->
-      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal">
-        <!-- Glow de canto no card -->
-        <div class="absolute -top-6 -left-6 w-32 h-32 rounded-full pointer-events-none"
-             style="background: radial-gradient(circle, rgba(0,245,255,0.12) 0%, transparent 70%);">
-        </div>
-        <!-- Ícone -->
-        <div class="w-14 h-14 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-5 shadow-glow-cyan">
-          <svg class="w-7 h-7 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-          </svg>
-        </div>
-        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Combate Dinâmico</h3>
-        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
-          Domine o sistema de <span class="text-cyan font-500">Esquiva Perfeita</span>,
-          <span class="text-cyan font-500">Parry</span> com timing preciso e desencadeie
-          <span class="text-cyan font-500">Críticos devastadores</span> nos momentos certos.
-          Cada acerto conta. Cada erro também.
-        </p>
-        <!-- Tag decorativa -->
-        <div class="mt-5 inline-block bg-cyan/10 border border-cyan/20 text-cyan text-xs font-500 px-3 py-1 rounded-full tracking-wider">
-          HABILIDADE & TIMING
-        </div>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon cyan">⚡</div>
+        <div class="feature-title" data-en="Dodge-Based Combat" data-pt="Combate por Esquiva">Dodge-Based Combat</div>
+        <p class="feature-desc" data-en="No auto-dodge, no cheese. Master I-frame timing to slip through boss attacks that would obliterate any lesser hunter. Precision is everything." data-pt="Sem esquiva automática. Domine o timing dos I-frames para escapar dos ataques de boss que destruiriam qualquer caçador menos habilidoso. Precisão é tudo.">No auto-dodge, no cheese. Master I-frame timing to slip through boss attacks that would obliterate any lesser hunter. Precision is everything.</p>
       </div>
 
-      <!-- ── CARD 2: Chefes Épicos ── -->
-      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal" style="transition-delay: 0.1s;">
-        <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full pointer-events-none"
-             style="background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 70%);">
-        </div>
-        <!-- Ícone -->
-        <div class="w-14 h-14 rounded-xl bg-orange/10 border border-orange/20 flex items-center justify-center mb-5 shadow-glow-orange">
-          <svg class="w-7 h-7 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
-        </div>
-        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Chefes Épicos</h3>
-        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
-          Enfrente criaturas colossais com
-          <span class="text-orange font-500">padrões de ataque únicos</span>,
-          múltiplas fases e fraquezas ocultas. Cada boss é um
-          <span class="text-orange font-500">puzzle mortal</span> esperando para ser decifrado.
-        </p>
-        <div class="mt-5 inline-block bg-orange/10 border border-orange/20 text-orange text-xs font-500 px-3 py-1 rounded-full tracking-wider">
-          BOSS FIGHTS ÉPICOS
-        </div>
+      <div class="feature-card violet-card reveal reveal-delay-2">
+        <div class="feature-icon violet">🗡️</div>
+        <div class="feature-title" data-en="Custom Weapon Forge" data-pt="Forja de Armas Customizadas">Custom Weapon Forge</div>
+        <p class="feature-desc" data-en="Combine rare materials dropped by world bosses to forge weapons with unique stat rolls. No two blades are the same — your loadout tells your story." data-pt="Combine materiais raros dropados por bosses para forjar armas com atributos únicos. Nenhuma lâmina é igual a outra — seu loadout conta sua história.">Combine rare materials dropped by world bosses to forge weapons with unique stat rolls. No two blades are the same — your loadout tells your story.</p>
       </div>
 
-      <!-- ── CARD 3: Customização Absoluta ── -->
-      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal" style="transition-delay: 0.2s;">
-        <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-full pointer-events-none"
-             style="background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);">
-        </div>
-        <!-- Ícone -->
-        <div class="w-14 h-14 rounded-xl bg-blue/10 border border-blue/20 flex items-center justify-center mb-5 shadow-glow-blue">
-          <svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Customização Absoluta</h3>
-        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
-          Forje seu próprio estilo com um sistema de
-          <span class="text-blue font-500">builds profundas</span>, armas únicas e
-          <span class="text-blue font-500">progressão não-linear</span>.
-          Não existe um caminho único. Exista o <em>seu</em> caminho.
-        </p>
-        <div class="mt-5 inline-block bg-blue/10 border border-blue/20 text-blue text-xs font-500 px-3 py-1 rounded-full tracking-wider">
-          BUILD ÚNICO
-        </div>
+      <div class="feature-card amber-card reveal reveal-delay-3">
+        <div class="feature-icon amber">🐉</div>
+        <div class="feature-title" data-en="Colossal Boss Hunts" data-pt="Caça a Bosses Colossais">Colossal Boss Hunts</div>
+        <p class="feature-desc" data-en="48 uniquely designed bosses, each with multi-phase fight patterns, breakable parts, and world-exclusive drop tables. From common to God-tier threats." data-pt="48 bosses com design único, cada um com padrões de luta multi-fase, partes quebráveis e tabelas de drop exclusivas. De ameaças comuns a nível Deus.">48 uniquely designed bosses, each with multi-phase fight patterns, breakable parts, and world-exclusive drop tables. From common to God-tier threats.</p>
       </div>
 
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon cyan">🌐</div>
+        <div class="feature-title" data-en="Open World Exploration" data-pt="Exploração de Mundo Aberto">Open World Exploration</div>
+        <p class="feature-desc" data-en="Traverse biomes of fractured digital terrain — from crystalline sky islands to corrupted deep zones. Hidden lore and secret bosses await the curious." data-pt="Atravesse biomas de terreno digital fraturado — de ilhas de cristal flutuantes a zonas corrompidas profundas. Lore oculto e bosses secretos aguardam os curiosos.">Traverse biomes of fractured digital terrain — from crystalline sky islands to corrupted deep zones. Hidden lore and secret bosses await the curious.</p>
+      </div>
+
+      <div class="feature-card violet-card reveal reveal-delay-3">
+        <div class="feature-icon violet">🏆</div>
+        <div class="feature-title" data-en="Ranked Hunt Seasons" data-pt="Temporadas Ranqueadas de Caça">Ranked Hunt Seasons</div>
+        <p class="feature-desc" data-en="Compete in timed seasonal hunts. Speed runs, damage records, and style scores are tracked on global leaderboards. Claim exclusive cosmetics for the top 1%." data-pt="Compita em caças sazonais cronometradas. Speed runs, recordes de dano e pontuações de estilo são rastreados em placares globais. Reivindique cosméticos exclusivos para o top 1%.">Compete in timed seasonal hunts. Speed runs, damage records, and style scores are tracked on global leaderboards. Claim exclusive cosmetics for the top 1%.</p>
+      </div>
+
+      <div class="feature-card amber-card reveal reveal-delay-4">
+        <div class="feature-icon amber">✨</div>
+        <div class="feature-title" data-en="Anime-Faithful Aesthetics" data-pt="Estética Fiel ao Anime">Anime-Faithful Aesthetics</div>
+        <p class="feature-desc" data-en="Every attack combo, effect, and environment is hand-crafted to feel like a scene from Shangri-La Frontier — immersive, visceral, and spectacularly animated." data-pt="Cada combo de ataque, efeito e ambiente é criado à mão para parecer uma cena de Shangri-La Frontier — imersivo, visceral e espetacularmente animado.">Every attack combo, effect, and environment is hand-crafted to feel like a scene from Shangri-La Frontier — immersive, visceral, and spectacularly animated.</p>
+      </div>
     </div>
   </div>
 </section>
-<!-- /SEÇÃO MECÂNICAS -->
 
+<div class="glow-line"></div>
 
-<!-- Divisor -->
-<div class="divider mx-8 md:mx-auto md:max-w-4xl"></div>
-
-
-<!-- ============================================================
-     SEÇÃO: GALERIA — Teasers visuais
-============================================================ -->
-<section class="relative py-20 px-5 overflow-hidden ambient-orange" id="galeria">
-
-  <div class="max-w-6xl mx-auto">
-
-    <!-- Cabeçalho -->
-    <div class="text-center mb-14 reveal">
-      <p class="font-body text-orange text-sm font-500 tracking-widest uppercase mb-3">
-        — Teasers Visuais —
-      </p>
-      <h2 class="font-display font-700 text-white leading-tight"
-          style="font-size: clamp(1.8rem, 6vw, 3rem);">
-        Uma Prévia do que
-        <span class="text-gradient-orange"> Está por Vir</span>
-      </h2>
-      <p class="font-body font-300 text-slate-400 mt-4 mx-auto" style="max-width: 420px; line-height: 1.7;">
-        Imagens do desenvolvimento em andamento. Tudo que você vê aqui está sendo construído agora.
-      </p>
+<!-- ===================== GALLERY ===================== -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="gallery-header reveal">
+      <div class="section-label violet" data-en="// media_gallery" data-pt="// galeria_de_mídia">// media_gallery</div>
+      <h2 class="section-title" data-en="See the World<br>Unfold" data-pt="Veja o Mundo<br>se Revelar">See the World<br>Unfold</h2>
     </div>
 
-    <!-- Grid da galeria — 1 col mobile / 3 col desktop -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-      <!-- ── Galeria Item 1 ── -->
-      <!-- =====================================================
-           INSIRA A IMAGEM/GIF DE ARMAS AQUI
-           Substitua o background-color por:
-           background-image: url('SUA_IMAGEM_ARMAS.jpg') ou .gif
-      ===================================================== -->
-      <div class="reveal group">
-        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
-             style="aspect-ratio: 16/9; background-color: #131e33;">
-
-          <!-- Imagem — substitua o src abaixo -->
-          <!-- <img src="SUA_IMAGEM_ARMAS_AQUI.jpg" alt="Armas de Aurora Frontier"
-                    class="w-full h-full object-cover" /> -->
-
-          <!-- Placeholder visual enquanto não há imagem -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
-            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
-                d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 9.75V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V9.75M3 9.75A2.25 2.25 0 015.25 7.5h13.5A2.25 2.25 0 0121 9.75" />
-            </svg>
-            <p class="font-body text-xs tracking-widest uppercase">Insira imagem de armas</p>
-          </div>
-
-          <!-- Overlay com label -->
-          <div class="absolute bottom-0 left-0 right-0 p-4
-                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
-                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <p class="font-display font-700 text-white text-sm tracking-wider">⚔️ Arsenal de Combate</p>
-            <p class="font-body text-xs text-slate-400 mt-0.5">Armas únicas com atributos especiais</p>
-          </div>
+    <div class="gallery-grid">
+      <div class="gallery-item g1 reveal">
+        <img
+          src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&q=80"
+          alt="Aurora Frontier — Boss Encounter"
+          loading="lazy"
+        >
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-tag" data-en="Boss Encounter" data-pt="Encontro com Boss">Boss Encounter</span>
         </div>
       </div>
 
-      <!-- ── Galeria Item 2 ── -->
-      <!-- =====================================================
-           INSIRA A IMAGEM/GIF DE INIMIGOS OU BOSS AQUI
-      ===================================================== -->
-      <div class="reveal group" style="transition-delay: 0.1s;">
-        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
-             style="aspect-ratio: 16/9; background-color: #1a1228;">
-
-          <!-- <img src="SUA_IMAGEM_BOSS_AQUI.jpg" alt="Boss de Aurora Frontier"
-                    class="w-full h-full object-cover" /> -->
-
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
-            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
-                d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 9.75V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V9.75M3 9.75A2.25 2.25 0 015.25 7.5h13.5A2.25 2.25 0 0121 9.75" />
-            </svg>
-            <p class="font-body text-xs tracking-widest uppercase">Insira imagem de inimigos</p>
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 p-4
-                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
-                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <p class="font-display font-700 text-white text-sm tracking-wider">👹 Inimigos & Bosses</p>
-            <p class="font-body text-xs text-slate-400 mt-0.5">Criaturas com IA adaptativa</p>
-          </div>
+      <div class="gallery-item g2 reveal reveal-delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80"
+          alt="Aurora Frontier — World Exploration"
+          loading="lazy"
+        >
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-tag" data-en="Exploration" data-pt="Exploração">Exploration</span>
         </div>
       </div>
 
-      <!-- ── Galeria Item 3 ── -->
-      <!-- =====================================================
-           INSIRA A IMAGEM/GIF DO MAPA OU MUNDO AQUI
-      ===================================================== -->
-      <div class="reveal group" style="transition-delay: 0.2s;">
-        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
-             style="aspect-ratio: 16/9; background-color: #0d1f1f;">
-
-          <!-- <img src="SUA_IMAGEM_MAPA_AQUI.jpg" alt="Mapa de Aurora Frontier"
-                    class="w-full h-full object-cover" /> -->
-
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
-            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
-                d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
-            </svg>
-            <p class="font-body text-xs tracking-widest uppercase">Insira imagem do mapa</p>
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 p-4
-                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
-                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <p class="font-display font-700 text-white text-sm tracking-wider">🗺️ O Mundo</p>
-            <p class="font-body text-xs text-slate-400 mt-0.5">Regiões em desenvolvimento</p>
-          </div>
+      <div class="gallery-item g3 reveal reveal-delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80"
+          alt="Aurora Frontier — Combat Action"
+          loading="lazy"
+        >
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-tag" data-en="Combat" data-pt="Combate">Combat</span>
         </div>
       </div>
 
-    </div>
+      <div class="gallery-item g4 reveal reveal-delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80"
+          alt="Aurora Frontier — Weapon Forge"
+          loading="lazy"
+        >
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-tag" data-en="Weapon Forge" data-pt="Forja">Weapon Forge</span>
+        </div>
+      </div>
 
-    <!-- CTA secundário após galeria -->
-    <div class="text-center mt-12 reveal">
-      <p class="font-body text-slate-400 text-sm mb-4">
-        Acompanhe o desenvolvimento em tempo real
-      </p>
-      <!-- =====================================================
-           SUBSTITUA O HREF PELO LINK DO SEU DISCORD
-      ===================================================== -->
-      <a href="https://discord.gg/SEU_INVITE_AQUI"
-         target="_blank" rel="noopener"
-         class="inline-flex items-center gap-2 border border-cyan/40 text-cyan hover:bg-cyan/10 font-body font-500 px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:border-cyan active:scale-95">
-        Entrar no Discord para updates →
-      </a>
+      <div class="gallery-item g5 reveal reveal-delay-3">
+        <img
+          src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80"
+          alt="Aurora Frontier — Digital World"
+          loading="lazy"
+        >
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-tag" data-en="Digital World" data-pt="Mundo Digital">Digital World</span>
+        </div>
+      </div>
     </div>
-
   </div>
 </section>
-<!-- /GALERIA -->
 
+<div class="glow-line"></div>
 
-<!-- Divisor -->
-<div class="divider mx-8 md:mx-auto md:max-w-4xl"></div>
+<!-- ===================== BOSSES ===================== -->
+<section id="bosses">
+  <div class="section-inner">
+    <div class="bosses-header reveal">
+      <div class="section-label" data-en="// elite_targets" data-pt="// alvos_elite">// elite_targets</div>
+      <h2 class="section-title" data-en="Your Most Wanted<br>Hunt List" data-pt="Sua Lista de<br>Caça Mais Procurada">Your Most Wanted<br>Hunt List</h2>
+      <p class="section-desc" data-en="These aren't just enemies — they're legends. Study their patterns. Learn their tells. Then go for the kill." data-pt="Estes não são apenas inimigos — são lendas. Estude seus padrões. Aprenda seus sinais. Depois vá para o abate.">These aren't just enemies — they're legends. Study their patterns. Learn their tells. Then go for the kill.</p>
+    </div>
 
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer class="relative py-14 px-5" id="footer">
-  <div class="max-w-4xl mx-auto">
-
-    <!-- Logo no footer -->
-    <div class="flex items-center justify-center gap-2 mb-8">
-      <div class="w-6 h-6 relative flex-shrink-0">
-        <div class="absolute inset-0 bg-cyan opacity-20 rounded-sm rotate-45"></div>
-        <div class="absolute inset-1 bg-cyan opacity-60 rounded-sm rotate-12"></div>
+    <div class="bosses-grid">
+      <div class="boss-card reveal reveal-delay-1">
+        <div class="boss-card-img">
+          <img
+            src="https://images.unsplash.com/photo-1614729939124-032d1e6c9945?w=600&q=80"
+            alt="Voidfang — The Abyss Dragon"
+            loading="lazy"
+          >
+          <span class="boss-difficulty diff-myth" data-en="Mythic" data-pt="Mítico">Mythic</span>
+        </div>
+        <div class="boss-card-body">
+          <div class="boss-name" data-en="Voidfang — The Abyss Dragon" data-pt="Voidfang — O Dragão do Abismo">Voidfang — The Abyss Dragon</div>
+          <p class="boss-desc" data-en="An ancient dragon-class entity sealed within the collapsed Zone 7. Immune to all energy-type damage in phase 1. Its tail sweep erases I-frame windows." data-pt="Uma entidade classe dragão selada na Zona 7 colapsada. Imune a todo dano tipo energia na fase 1. Sua rasteira elimina janelas de I-frame.">An ancient dragon-class entity sealed within the collapsed Zone 7. Immune to all energy-type damage in phase 1. Its tail sweep erases I-frame windows.</p>
+          <div class="boss-stats">
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="HP Pool" data-pt="HP Total">HP Pool</span>
+              <span class="bsi-val">2.4M</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Phases" data-pt="Fases">Phases</span>
+              <span class="bsi-val">3</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Drop Rate" data-pt="Taxa de Drop">Drop Rate</span>
+              <span class="bsi-val">0.8%</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <span class="font-display font-700 text-lg tracking-widest uppercase">
-        <span class="text-gradient-cyan">Aurora</span>
-        <span class="text-white ml-1">Frontier</span>
-      </span>
-    </div>
 
-    <!-- Redes sociais -->
-    <div class="flex flex-wrap justify-center gap-4 mb-8">
+      <div class="boss-card reveal reveal-delay-2">
+        <div class="boss-card-img">
+          <img
+            src="https://images.unsplash.com/photo-1623479322729-28b25c16b011?w=600&q=80"
+            alt="Crystalis — Shattered Sovereign"
+            loading="lazy"
+          >
+          <span class="boss-difficulty diff-rare" data-en="Rare" data-pt="Raro">Rare</span>
+        </div>
+        <div class="boss-card-body">
+          <div class="boss-name" data-en="Crystalis — Shattered Sovereign" data-pt="Crystalis — O Soberano Estilhaçado">Crystalis — Shattered Sovereign</div>
+          <p class="boss-desc" data-en="A colossal crystal golem that spawns mirror clones during phase 2. Destroying the wrong clone deals reflected damage back to the hunter." data-pt="Um golem de cristal colossal que invoca clones espelhos durante a fase 2. Destruir o clone errado reflete dano de volta ao caçador.">A colossal crystal golem that spawns mirror clones during phase 2. Destroying the wrong clone deals reflected damage back to the hunter.</p>
+          <div class="boss-stats">
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="HP Pool" data-pt="HP Total">HP Pool</span>
+              <span class="bsi-val">890K</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Phases" data-pt="Fases">Phases</span>
+              <span class="bsi-val">2</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Drop Rate" data-pt="Taxa de Drop">Drop Rate</span>
+              <span class="bsi-val">4.2%</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- =====================================================
-           SUBSTITUA CADA href PELO SEU LINK REAL
-      ===================================================== -->
-
-      <!-- Discord -->
-      <a href="https://discord.gg/SEU_INVITE_AQUI" target="_blank" rel="noopener"
-         class="flex items-center gap-2 text-slate-400 hover:text-[#5865F2] transition-colors duration-200 text-sm font-body">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
-        </svg>
-        Discord
-      </a>
-
-      <!-- X / Twitter -->
-      <!-- SUBSTITUA: href="https://twitter.com/SEU_PERFIL_AQUI" -->
-      <a href="https://twitter.com/SEU_PERFIL_AQUI" target="_blank" rel="noopener"
-         class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 text-sm font-body">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-        Twitter / X
-      </a>
-
-      <!-- YouTube -->
-      <!-- SUBSTITUA: href="https://youtube.com/@SEU_CANAL_AQUI" -->
-      <a href="https://youtube.com/@SEU_CANAL_AQUI" target="_blank" rel="noopener"
-         class="flex items-center gap-2 text-slate-400 hover:text-[#ff0000] transition-colors duration-200 text-sm font-body">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-        </svg>
-        YouTube
-      </a>
-
-      <!-- Roblox -->
-      <!-- SUBSTITUA: href="https://www.roblox.com/games/SEU_GAME_ID" -->
-      <a href="https://www.roblox.com/games/SEU_GAME_ID" target="_blank" rel="noopener"
-         class="flex items-center gap-2 text-slate-400 hover:text-[#00b2ff] transition-colors duration-200 text-sm font-body">
-        <svg class="w-5 h-5" viewBox="0 0 512 512" fill="currentColor">
-          <path d="M 92 92 L 185 419 L 421 349 L 327 22 Z M 213 170 L 306 148 L 328 231 L 234 253 Z"/>
-        </svg>
-        Roblox
-      </a>
-
-    </div>
-
-    <!-- Aviso Alpha -->
-    <div class="flex justify-center mb-6">
-      <div class="flex items-center gap-2 bg-orange/10 border border-orange/20 text-orange text-xs font-body font-500 px-4 py-2 rounded-full tracking-wider">
-        <span class="w-2 h-2 bg-orange rounded-full animate-pulse"></span>
-        O jogo está em fase Alpha — funcionalidades e visuais podem mudar.
+      <div class="boss-card reveal reveal-delay-3">
+        <div class="boss-card-img">
+          <img
+            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80"
+            alt="Solaris Rex — God of the Burning Sky"
+            loading="lazy"
+          >
+          <span class="boss-difficulty diff-god" data-en="God-Tier" data-pt="Nível Deus">God-Tier</span>
+        </div>
+        <div class="boss-card-body">
+          <div class="boss-name" data-en="Solaris Rex — God of the Burning Sky" data-pt="Solaris Rex — Deus do Céu Ardente">Solaris Rex — God of the Burning Sky</div>
+          <p class="boss-desc" data-en="The pinnacle of Aurora Frontier. A sun-entity that fills the entire arena with AoE fire during enrage. Only 3 players have cleared this fight solo." data-pt="O pináculo de Aurora Frontier. Uma entidade solar que preenche toda a arena com fogo AoE no enrage. Apenas 3 jogadores zeraram esta luta solo.">The pinnacle of Aurora Frontier. A sun-entity that fills the entire arena with AoE fire during enrage. Only 3 players have cleared this fight solo.</p>
+          <div class="boss-stats">
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="HP Pool" data-pt="HP Total">HP Pool</span>
+              <span class="bsi-val">12M</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Phases" data-pt="Fases">Phases</span>
+              <span class="bsi-val">4</span>
+            </div>
+            <div class="boss-stat-item">
+              <span class="bsi-label" data-en="Drop Rate" data-pt="Taxa de Drop">Drop Rate</span>
+              <span class="bsi-val">0.1%</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Divider -->
-    <div class="divider mb-6"></div>
+<div class="glow-line"></div>
 
-    <!-- Copyright -->
-    <div class="text-center">
-      <!-- =====================================================
-           SUBSTITUA "Seu Nome / Seu Estúdio" pelo seu nome real
-      ===================================================== -->
-      <p class="font-body text-slate-500 text-xs">
-        © 2025 Aurora Frontier · Desenvolvido por
-        <span class="text-slate-400 font-500">Seu Nome / Seu Estúdio</span>
-        · Todos os direitos reservados.
-      </p>
-      <p class="font-body text-slate-600 text-xs mt-2">
-        Não afiliado ao Roblox Corporation ou Katarina (Shangri-La Frontier).
-      </p>
+<!-- ===================== JOIN / DISCORD CTA ===================== -->
+<section id="join">
+  <div class="join-inner">
+    <div class="join-icon reveal">⚡</div>
+    <h2 class="join-title reveal reveal-delay-1" data-en="Ready to Hunt?" data-pt="Pronto para Caçar?">Ready to Hunt?</h2>
+    <p class="join-desc reveal reveal-delay-2" data-en="Join thousands of hunters already pushing the limits of Aurora Frontier. Connect on Discord for patch notes, events, and the most dangerous raid parties on Roblox." data-pt="Junte-se a milhares de caçadores que já estão empurrando os limites de Aurora Frontier. Conecte-se no Discord para patch notes, eventos e as raids mais perigosas do Roblox.">Join thousands of hunters already pushing the limits of Aurora Frontier. Connect on Discord for patch notes, events, and the most dangerous raid parties on Roblox.</p>
+
+    <div class="join-btns reveal reveal-delay-3">
+      <a href="#" class="btn-discord">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="currentColor"><path d="M18.59 1.52A18.15 18.15 0 0 0 14.19 0c-.19.33-.4.77-.55 1.12a16.77 16.77 0 0 0-5.28 0C8.21.77 7.99.33 7.8 0A18.1 18.1 0 0 0 3.4 1.52 19.23 19.23 0 0 0 0 13.36 18.28 18.28 0 0 0 5.59 16c.44-.61.84-1.26 1.17-1.94a11.85 11.85 0 0 1-1.84-.9c.15-.11.3-.23.44-.35a13.02 13.02 0 0 0 11.27 0c.14.12.29.24.44.35a11.87 11.87 0 0 1-1.85.91c.34.68.73 1.33 1.18 1.93A18.22 18.22 0 0 0 22 13.36 19.2 19.2 0 0 0 18.59 1.52ZM7.34 10.91c-1.14 0-2.07-1.07-2.07-2.38 0-1.31.91-2.38 2.07-2.38 1.16 0 2.09 1.07 2.07 2.38 0 1.31-.91 2.38-2.07 2.38Zm7.32 0c-1.14 0-2.07-1.07-2.07-2.38 0-1.31.91-2.38 2.07-2.38 1.16 0 2.09 1.07 2.07 2.38 0 1.31-.9 2.38-2.07 2.38Z"/></svg>
+        <span data-en="Join Discord" data-pt="Entrar no Discord">Join Discord</span>
+      </a>
+      <a href="#" class="btn-roblox">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect x="3" y="3" width="14" height="14" rx="2"/><rect x="6" y="6" width="3" height="3" fill="var(--void)"/><rect x="11" y="11" width="3" height="3" fill="var(--void)"/></svg>
+        <span data-en="Play on Roblox" data-pt="Jogar no Roblox">Play on Roblox</span>
+      </a>
     </div>
 
+    <div class="join-meta reveal reveal-delay-4">
+      <div class="join-meta-item">
+        <span>✓</span>
+        <span data-en="Free to play" data-pt="Gratuito">Free to play</span>
+      </div>
+      <div class="join-meta-item">
+        <span>✓</span>
+        <span data-en="No download required" data-pt="Sem download necessário">No download required</span>
+      </div>
+      <div class="join-meta-item">
+        <span>✓</span>
+        <span data-en="Weekly updates" data-pt="Atualizações semanais">Weekly updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-af">AURORA</span> FRONTIER
+    </div>
+    <ul class="footer-links">
+      <li><a href="#" data-en="Terms" data-pt="Termos">Terms</a></li>
+      <li><a href="#" data-en="Privacy" data-pt="Privacidade">Privacy</a></li>
+      <li><a href="#" data-en="Discord" data-pt="Discord">Discord</a></li>
+      <li><a href="#" data-en="Roblox" data-pt="Roblox">Roblox</a></li>
+    </ul>
+    <p class="footer-copy" data-en="© 2025 Aurora Frontier. Inspired by Shangri-La Frontier. Fan-made Roblox experience — not affiliated with the original IP." data-pt="© 2025 Aurora Frontier. Inspirado em Shangri-La Frontier. Experiência Roblox criada por fãs — não afiliada ao IP original.">© 2025 Aurora Frontier. Inspired by Shangri-La Frontier. Fan-made Roblox experience — not affiliated with the original IP.</p>
   </div>
 </footer>
-<!-- /FOOTER -->
 
-
-<!-- ============================================================
-     JAVASCRIPT — Scroll reveal animation
-============================================================ -->
+<!-- ===================== JAVASCRIPT ===================== -->
 <script>
-  // Intersection Observer para as animações de scroll (.reveal)
+  // ================================================
+  // LOADING SCREEN
+  // ================================================
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loading').classList.add('done');
+    }, 1600);
+  });
+
+  // ================================================
+  // LANGUAGE SYSTEM
+  // ================================================
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+      } else {
+        const val = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+        // Handle innerHTML for line breaks
+        if (val && val.includes('<br>')) {
+          el.innerHTML = val;
+        } else {
+          el.textContent = val;
+        }
+      }
+    });
+
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.textContent.trim().toLowerCase() === lang) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  }
+
+  // ================================================
+  // HAMBURGER MENU
+  // ================================================
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open', !isOpen);
+    hamburger.classList.toggle('open', !isOpen);
+  });
+
+  // Close on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  // ================================================
+  // SCROLL REVEAL
+  // ================================================
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target); // dispara só uma vez
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // Remove o placeholder do hero se houver um bg-image definido
-  const heroBg = document.getElementById('hero-bg-image');
-  const heroPlaceholder = document.getElementById('hero-placeholder');
-  if (heroBg && heroBg.style.backgroundImage && heroBg.style.backgroundImage !== 'none') {
-    if (heroPlaceholder) heroPlaceholder.style.display = 'none';
+  // ================================================
+  // NAV SCROLL EFFECT
+  // ================================================
+  const mainNav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      mainNav.style.background = 'rgba(4,5,10,0.95)';
+    } else {
+      mainNav.style.background = 'rgba(4,5,10,0.75)';
+    }
+  }, { passive: true });
+
+  // ================================================
+  // SMOOTH SCROLL
+  // ================================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 68;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ================================================
+  // FEATURE CARD MOUSE GLOW
+  // ================================================
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+  });
+
+  // ================================================
+  // PARTICLES
+  // ================================================
+  function createParticles() {
+    const container = document.getElementById('particles');
+    const colors = ['rgba(0,212,255,', 'rgba(168,85,247,', 'rgba(255,255,255,'];
+
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const opacity = Math.random() * 0.5 + 0.2;
+      const duration = Math.random() * 18 + 12;
+      const delay = Math.random() * 20;
+      const left = Math.random() * 100;
+
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color}${opacity});
+        left: ${left}%;
+        animation-duration: ${duration}s;
+        animation-delay: ${delay}s;
+        box-shadow: 0 0 ${size * 4}px ${color}0.5);
+      `;
+      container.appendChild(p);
+    }
+  }
+  createParticles();
+
+  // ================================================
+  // HERO IMAGE PARALLAX (subtle)
+  // ================================================
+  const heroBg = document.querySelector('.hero-bg img');
+  if (heroBg) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroBg.style.transform = `translateY(${scrolled * 0.25}px)`;
+      }
+    }, { passive: true });
   }
 </script>
-
 </body>
 </html>
