@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora Frontier — O RPG Definitivo no Roblox</title>
+
+  <!-- ======================================================
+       GOOGLE FONTS — Rajdhani (display gamer) + Outfit (body)
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ======================================================
+       TAILWIND CSS via CDN
+  ====================================================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Rajdhani', 'sans-serif'],
+            body: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            base:    '#0f172a',
+            surface: '#111827',
+            card:    '#1a2235',
+            border:  '#1e3a5f',
+            cyan:    '#00f5ff',
+            blue:    '#3b82f6',
+            orange:  '#ff6b00',
+          },
+          boxShadow: {
+            'glow-cyan':   '0 0 20px rgba(0,245,255,0.35), 0 0 60px rgba(0,245,255,0.12)',
+            'glow-orange': '0 0 20px rgba(255,107,0,0.45), 0 0 60px rgba(255,107,0,0.15)',
+            'glow-blue':   '0 0 20px rgba(59,130,246,0.45), 0 0 60px rgba(59,130,246,0.15)',
+            'card-hover':  '0 8px 40px rgba(0,245,255,0.15)',
+          },
+          keyframes: {
+            pulse_cta: {
+              '0%, 100%': { boxShadow: '0 0 0 0 rgba(0,245,255,0.55)' },
+              '50%':       { boxShadow: '0 0 0 14px rgba(0,245,255,0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%':       { transform: 'translateY(-8px)' },
+            },
+            scanline: {
+              '0%':   { backgroundPosition: '0 0' },
+              '100%': { backgroundPosition: '0 100%' },
+            },
+            fadeUp: {
+              '0%':   { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glitch: {
+              '0%, 100%': { clipPath: 'inset(0 0 100% 0)' },
+              '20%':       { clipPath: 'inset(30% 0 40% 0)', transform: 'translate(-3px)' },
+              '40%':       { clipPath: 'inset(60% 0 10% 0)', transform: 'translate(3px)' },
+              '60%':       { clipPath: 'inset(10% 0 70% 0)', transform: 'translate(-2px)' },
+              '80%':       { clipPath: 'inset(80% 0 5% 0)',  transform: 'translate(2px)' },
+            },
+          },
+          animation: {
+            pulse_cta: 'pulse_cta 2s ease-in-out infinite',
+            float:     'float 4s ease-in-out infinite',
+            fadeUp:    'fadeUp 0.8s ease forwards',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base reset & globals ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #0f172a;
+      font-family: 'Outfit', sans-serif;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── Scrollbar styling ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #00f5ff44; border-radius: 2px; }
+
+    /* ── Gradient text utility ── */
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #00f5ff 0%, #3b82f6 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-orange {
+      background: linear-gradient(135deg, #ff6b00 0%, #ffb347 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Hero grid lines background ── */
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── Scanline effect on hero ── */
+    .scanlines::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ── Animated glow border on cards ── */
+    .card-glow {
+      position: relative;
+      border: 1px solid rgba(0,245,255,0.15);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .card-glow:hover {
+      border-color: rgba(0,245,255,0.5);
+      box-shadow: 0 8px 40px rgba(0,245,255,0.15);
+      transform: translateY(-4px);
+    }
+
+    /* ── Corner decorators on cards ── */
+    .card-corner::before,
+    .card-corner::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: #00f5ff;
+      border-style: solid;
+      opacity: 0.7;
+    }
+    .card-corner::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .card-corner::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    /* ── CTA button pulse ── */
+    .btn-pulse { animation: pulse_cta 2s ease-in-out infinite; }
+
+    /* ── Header backdrop blur ── */
+    .header-glass {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,245,255,0.1);
+    }
+
+    /* ── Gallery image hover ── */
+    .gallery-img {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .gallery-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0,245,255,0.2);
+    }
+
+    /* ── Fade-up animation on scroll (JS-triggered) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Radial ambient glows ── */
+    .ambient-cyan {
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,245,255,0.08) 0%, transparent 70%);
+    }
+    .ambient-orange {
+      background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,107,0,0.07) 0%, transparent 70%);
+    }
+
+    /* ── Section divider line ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,255,0.3), transparent);
+    }
+
+    /* ── Stat badge ── */
+    .stat-badge {
+      background: rgba(0,245,255,0.07);
+      border: 1px solid rgba(0,245,255,0.2);
+    }
+
+    /* ── Alpha badge ── */
+    .alpha-badge {
+      background: linear-gradient(135deg, #ff6b00, #ff9500);
+      font-family: 'Rajdhani', sans-serif;
+      letter-spacing: 0.12em;
+    }
+  </style>
+</head>
+
+<body class="relative">
+
+<!-- ============================================================
+     HEADER — Fixo no topo
+============================================================ -->
+<header class="header-glass fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-2">
+      <!-- Ícone decorativo do logo -->
+      <div class="w-7 h-7 relative flex-shrink-0">
+        <div class="absolute inset-0 bg-cyan opacity-20 rounded-sm rotate-45"></div>
+        <div class="absolute inset-1 bg-cyan opacity-60 rounded-sm rotate-12"></div>
+      </div>
+      <span class="font-display font-700 text-xl tracking-widest uppercase">
+        <span class="text-gradient-cyan">Aurora</span>
+        <span class="text-white ml-1">Frontier</span>
+      </span>
+    </div>
+
+    <!-- Botão Discord -->
+    <!-- =====================================================
+         SUBSTITUA O HREF ABAIXO PELO LINK DO SEU SERVIDOR DISCORD
+         Ex: href="https://discord.gg/SEU_INVITE_AQUI"
+    ===================================================== -->
+    <a href="https://discord.gg/SEU_INVITE_AQUI"
+       target="_blank" rel="noopener"
+       class="flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] text-white text-sm font-body font-500 px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-glow-blue active:scale-95">
+      <!-- Discord SVG icon -->
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+      </svg>
+      Discord
+    </a>
+
+  </div>
+</header>
+<!-- /HEADER -->
+
+
+<!-- ============================================================
+     HERO SECTION — A dobra principal
+============================================================ -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-grid scanlines pt-16">
+
+  <!-- =====================================================
+       BACKGROUND DE MÍDIA DO HERO
+       OPÇÃO 1 — VÍDEO: Descomente o bloco abaixo e insira a URL do seu vídeo (.mp4)
+       OPÇÃO 2 — IMAGEM: O div #hero-bg-image já está pronto abaixo
+  ===================================================== -->
+
+  <!--
+  <video
+    autoplay muted loop playsinline
+    class="absolute inset-0 w-full h-full object-cover opacity-30 z-0"
+    style="filter: saturate(1.2) brightness(0.6);">
+    <source src="URL_DO_SEU_VIDEO_AQUI.mp4" type="video/mp4" />
+  </video>
+  -->
+
+  <!-- =====================================================
+       INSIRA A IMAGEM DE FUNDO DO HERO AQUI
+       Substitua o background-color por: background-image: url('SUA_IMAGEM.jpg')
+       e ajuste opacity conforme necessário
+  ===================================================== -->
+  <div id="hero-bg-image"
+       class="absolute inset-0 z-0"
+       style="
+         background-color: #0a1628;
+         /* background-image: url('SUA_IMAGEM_EPICA_AQUI.jpg'); */
+         background-size: cover;
+         background-position: center;
+         opacity: 0.45;
+       ">
+  </div>
+  <!-- Placeholder visual enquanto não há imagem -->
+  <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" id="hero-placeholder">
+    <div class="text-center opacity-10 select-none">
+      <p class="font-display text-8xl font-700 text-cyan tracking-widest">AF</p>
+      <p class="font-body text-sm text-slate-400 mt-2 tracking-widest uppercase">Insira seu background aqui</p>
+    </div>
+  </div>
+
+  <!-- Gradientes de profundidade sobre o bg -->
+  <div class="absolute inset-0 z-1 bg-gradient-to-b from-[#0f172a]/60 via-transparent to-[#0f172a]"></div>
+  <div class="absolute inset-0 z-1 ambient-cyan"></div>
+
+  <!-- Conteúdo do Hero -->
+  <div class="relative z-10 w-full max-w-4xl mx-auto px-5 py-20 text-center">
+
+    <!-- Badge Alpha -->
+    <div class="inline-flex items-center gap-2 alpha-badge text-white text-xs font-700 tracking-widest uppercase px-3 py-1 rounded-full mb-6 shadow-glow-orange">
+      <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+      Em Desenvolvimento · Alpha
+    </div>
+
+    <!-- Título principal -->
+    <h1 class="font-display font-700 leading-none mb-5 text-white"
+        style="font-size: clamp(2.4rem, 9vw, 5.5rem); letter-spacing: -0.01em;">
+      <span class="text-gradient-cyan">Desperte seu Instinto.</span><br />
+      Conquiste a Fronteira.
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="font-body font-300 text-slate-300 mb-10 mx-auto"
+       style="font-size: clamp(1rem, 3vw, 1.25rem); max-width: 540px; line-height: 1.65;">
+      O RPG de ação definitivo no Roblox inspirado em
+      <span class="text-cyan font-500">Shangri-La Frontier</span>.
+    </p>
+
+    <!-- CTA Principal -->
+    <!-- =====================================================
+         SUBSTITUA O HREF PELO LINK DO SEU DISCORD
+    ===================================================== -->
+    <a href="https://discord.gg/SEU_INVITE_AQUI"
+       target="_blank" rel="noopener"
+       class="btn-pulse inline-flex items-center gap-3 bg-cyan text-[#0f172a] font-display font-700 uppercase tracking-wider px-8 py-4 rounded-xl text-lg transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 shadow-glow-cyan">
+      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+      </svg>
+      Junte-se à Comunidade
+    </a>
+
+    <!-- Stats badges -->
+    <div class="flex flex-wrap justify-center gap-3 mt-10">
+      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-cyan">
+        ⚔️ Combate em Tempo Real
+      </div>
+      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-slate-300">
+        🗺️ Mundo Aberto
+      </div>
+      <div class="stat-badge px-4 py-2 rounded-full text-sm font-body font-500 text-slate-300">
+        🎮 100% Roblox
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Seta de scroll -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+    <svg class="w-6 h-6 text-cyan opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+</section>
+<!-- /HERO SECTION -->
+
+
+<!-- ============================================================
+     SEÇÃO: SOBRE O JOGO — Mecânicas / Feature Cards
+============================================================ -->
+<section class="relative py-20 px-5 overflow-hidden" id="mecanicas">
+
+  <!-- Glow de fundo -->
+  <div class="absolute inset-0 pointer-events-none"
+       style="background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(59,130,246,0.05) 0%, transparent 70%);">
+  </div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+
+    <!-- Cabeçalho da seção -->
+    <div class="text-center mb-14 reveal">
+      <p class="font-body text-cyan text-sm font-500 tracking-widest uppercase mb-3">
+        — Mecânicas de Jogo —
+      </p>
+      <h2 class="font-display font-700 text-white leading-tight"
+          style="font-size: clamp(1.8rem, 6vw, 3rem);">
+        Cada Batalha é um
+        <span class="text-gradient-cyan"> Teste de Habilidade</span>
+      </h2>
+      <p class="font-body font-300 text-slate-400 mt-4 mx-auto" style="max-width: 480px; line-height: 1.7;">
+        Aurora Frontier não perdoa os despreparados. Aprenda os sistemas, domine as mecânicas e torne-se lendário.
+      </p>
+    </div>
+
+    <!-- Grid de Cards — 1 col mobile / 3 col desktop -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- ── CARD 1: Combate Dinâmico ── -->
+      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal">
+        <!-- Glow de canto no card -->
+        <div class="absolute -top-6 -left-6 w-32 h-32 rounded-full pointer-events-none"
+             style="background: radial-gradient(circle, rgba(0,245,255,0.12) 0%, transparent 70%);">
+        </div>
+        <!-- Ícone -->
+        <div class="w-14 h-14 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-5 shadow-glow-cyan">
+          <svg class="w-7 h-7 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+        </div>
+        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Combate Dinâmico</h3>
+        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
+          Domine o sistema de <span class="text-cyan font-500">Esquiva Perfeita</span>,
+          <span class="text-cyan font-500">Parry</span> com timing preciso e desencadeie
+          <span class="text-cyan font-500">Críticos devastadores</span> nos momentos certos.
+          Cada acerto conta. Cada erro também.
+        </p>
+        <!-- Tag decorativa -->
+        <div class="mt-5 inline-block bg-cyan/10 border border-cyan/20 text-cyan text-xs font-500 px-3 py-1 rounded-full tracking-wider">
+          HABILIDADE & TIMING
+        </div>
+      </div>
+
+      <!-- ── CARD 2: Chefes Épicos ── -->
+      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal" style="transition-delay: 0.1s;">
+        <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full pointer-events-none"
+             style="background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 70%);">
+        </div>
+        <!-- Ícone -->
+        <div class="w-14 h-14 rounded-xl bg-orange/10 border border-orange/20 flex items-center justify-center mb-5 shadow-glow-orange">
+          <svg class="w-7 h-7 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+        </div>
+        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Chefes Épicos</h3>
+        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
+          Enfrente criaturas colossais com
+          <span class="text-orange font-500">padrões de ataque únicos</span>,
+          múltiplas fases e fraquezas ocultas. Cada boss é um
+          <span class="text-orange font-500">puzzle mortal</span> esperando para ser decifrado.
+        </p>
+        <div class="mt-5 inline-block bg-orange/10 border border-orange/20 text-orange text-xs font-500 px-3 py-1 rounded-full tracking-wider">
+          BOSS FIGHTS ÉPICOS
+        </div>
+      </div>
+
+      <!-- ── CARD 3: Customização Absoluta ── -->
+      <div class="card-glow card-corner bg-card rounded-2xl p-7 relative overflow-hidden reveal" style="transition-delay: 0.2s;">
+        <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-full pointer-events-none"
+             style="background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);">
+        </div>
+        <!-- Ícone -->
+        <div class="w-14 h-14 rounded-xl bg-blue/10 border border-blue/20 flex items-center justify-center mb-5 shadow-glow-blue">
+          <svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <h3 class="font-display font-700 text-xl text-white tracking-wide mb-3">Customização Absoluta</h3>
+        <p class="font-body font-300 text-slate-400 leading-relaxed text-sm">
+          Forje seu próprio estilo com um sistema de
+          <span class="text-blue font-500">builds profundas</span>, armas únicas e
+          <span class="text-blue font-500">progressão não-linear</span>.
+          Não existe um caminho único. Exista o <em>seu</em> caminho.
+        </p>
+        <div class="mt-5 inline-block bg-blue/10 border border-blue/20 text-blue text-xs font-500 px-3 py-1 rounded-full tracking-wider">
+          BUILD ÚNICO
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- /SEÇÃO MECÂNICAS -->
+
+
+<!-- Divisor -->
+<div class="divider mx-8 md:mx-auto md:max-w-4xl"></div>
+
+
+<!-- ============================================================
+     SEÇÃO: GALERIA — Teasers visuais
+============================================================ -->
+<section class="relative py-20 px-5 overflow-hidden ambient-orange" id="galeria">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-14 reveal">
+      <p class="font-body text-orange text-sm font-500 tracking-widest uppercase mb-3">
+        — Teasers Visuais —
+      </p>
+      <h2 class="font-display font-700 text-white leading-tight"
+          style="font-size: clamp(1.8rem, 6vw, 3rem);">
+        Uma Prévia do que
+        <span class="text-gradient-orange"> Está por Vir</span>
+      </h2>
+      <p class="font-body font-300 text-slate-400 mt-4 mx-auto" style="max-width: 420px; line-height: 1.7;">
+        Imagens do desenvolvimento em andamento. Tudo que você vê aqui está sendo construído agora.
+      </p>
+    </div>
+
+    <!-- Grid da galeria — 1 col mobile / 3 col desktop -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+      <!-- ── Galeria Item 1 ── -->
+      <!-- =====================================================
+           INSIRA A IMAGEM/GIF DE ARMAS AQUI
+           Substitua o background-color por:
+           background-image: url('SUA_IMAGEM_ARMAS.jpg') ou .gif
+      ===================================================== -->
+      <div class="reveal group">
+        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
+             style="aspect-ratio: 16/9; background-color: #131e33;">
+
+          <!-- Imagem — substitua o src abaixo -->
+          <!-- <img src="SUA_IMAGEM_ARMAS_AQUI.jpg" alt="Armas de Aurora Frontier"
+                    class="w-full h-full object-cover" /> -->
+
+          <!-- Placeholder visual enquanto não há imagem -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 9.75V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V9.75M3 9.75A2.25 2.25 0 015.25 7.5h13.5A2.25 2.25 0 0121 9.75" />
+            </svg>
+            <p class="font-body text-xs tracking-widest uppercase">Insira imagem de armas</p>
+          </div>
+
+          <!-- Overlay com label -->
+          <div class="absolute bottom-0 left-0 right-0 p-4
+                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
+                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <p class="font-display font-700 text-white text-sm tracking-wider">⚔️ Arsenal de Combate</p>
+            <p class="font-body text-xs text-slate-400 mt-0.5">Armas únicas com atributos especiais</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Galeria Item 2 ── -->
+      <!-- =====================================================
+           INSIRA A IMAGEM/GIF DE INIMIGOS OU BOSS AQUI
+      ===================================================== -->
+      <div class="reveal group" style="transition-delay: 0.1s;">
+        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
+             style="aspect-ratio: 16/9; background-color: #1a1228;">
+
+          <!-- <img src="SUA_IMAGEM_BOSS_AQUI.jpg" alt="Boss de Aurora Frontier"
+                    class="w-full h-full object-cover" /> -->
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 9.75V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V9.75M3 9.75A2.25 2.25 0 015.25 7.5h13.5A2.25 2.25 0 0121 9.75" />
+            </svg>
+            <p class="font-body text-xs tracking-widest uppercase">Insira imagem de inimigos</p>
+          </div>
+
+          <div class="absolute bottom-0 left-0 right-0 p-4
+                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
+                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <p class="font-display font-700 text-white text-sm tracking-wider">👹 Inimigos & Bosses</p>
+            <p class="font-body text-xs text-slate-400 mt-0.5">Criaturas com IA adaptativa</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Galeria Item 3 ── -->
+      <!-- =====================================================
+           INSIRA A IMAGEM/GIF DO MAPA OU MUNDO AQUI
+      ===================================================== -->
+      <div class="reveal group" style="transition-delay: 0.2s;">
+        <div class="gallery-img relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer"
+             style="aspect-ratio: 16/9; background-color: #0d1f1f;">
+
+          <!-- <img src="SUA_IMAGEM_MAPA_AQUI.jpg" alt="Mapa de Aurora Frontier"
+                    class="w-full h-full object-cover" /> -->
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-600">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+            </svg>
+            <p class="font-body text-xs tracking-widest uppercase">Insira imagem do mapa</p>
+          </div>
+
+          <div class="absolute bottom-0 left-0 right-0 p-4
+                      bg-gradient-to-t from-[#0f172a]/90 to-transparent
+                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <p class="font-display font-700 text-white text-sm tracking-wider">🗺️ O Mundo</p>
+            <p class="font-body text-xs text-slate-400 mt-0.5">Regiões em desenvolvimento</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA secundário após galeria -->
+    <div class="text-center mt-12 reveal">
+      <p class="font-body text-slate-400 text-sm mb-4">
+        Acompanhe o desenvolvimento em tempo real
+      </p>
+      <!-- =====================================================
+           SUBSTITUA O HREF PELO LINK DO SEU DISCORD
+      ===================================================== -->
+      <a href="https://discord.gg/SEU_INVITE_AQUI"
+         target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 border border-cyan/40 text-cyan hover:bg-cyan/10 font-body font-500 px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:border-cyan active:scale-95">
+        Entrar no Discord para updates →
+      </a>
+    </div>
+
+  </div>
+</section>
+<!-- /GALERIA -->
+
+
+<!-- Divisor -->
+<div class="divider mx-8 md:mx-auto md:max-w-4xl"></div>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="relative py-14 px-5" id="footer">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- Logo no footer -->
+    <div class="flex items-center justify-center gap-2 mb-8">
+      <div class="w-6 h-6 relative flex-shrink-0">
+        <div class="absolute inset-0 bg-cyan opacity-20 rounded-sm rotate-45"></div>
+        <div class="absolute inset-1 bg-cyan opacity-60 rounded-sm rotate-12"></div>
+      </div>
+      <span class="font-display font-700 text-lg tracking-widest uppercase">
+        <span class="text-gradient-cyan">Aurora</span>
+        <span class="text-white ml-1">Frontier</span>
+      </span>
+    </div>
+
+    <!-- Redes sociais -->
+    <div class="flex flex-wrap justify-center gap-4 mb-8">
+
+      <!-- =====================================================
+           SUBSTITUA CADA href PELO SEU LINK REAL
+      ===================================================== -->
+
+      <!-- Discord -->
+      <a href="https://discord.gg/SEU_INVITE_AQUI" target="_blank" rel="noopener"
+         class="flex items-center gap-2 text-slate-400 hover:text-[#5865F2] transition-colors duration-200 text-sm font-body">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+        </svg>
+        Discord
+      </a>
+
+      <!-- X / Twitter -->
+      <!-- SUBSTITUA: href="https://twitter.com/SEU_PERFIL_AQUI" -->
+      <a href="https://twitter.com/SEU_PERFIL_AQUI" target="_blank" rel="noopener"
+         class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 text-sm font-body">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        Twitter / X
+      </a>
+
+      <!-- YouTube -->
+      <!-- SUBSTITUA: href="https://youtube.com/@SEU_CANAL_AQUI" -->
+      <a href="https://youtube.com/@SEU_CANAL_AQUI" target="_blank" rel="noopener"
+         class="flex items-center gap-2 text-slate-400 hover:text-[#ff0000] transition-colors duration-200 text-sm font-body">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        YouTube
+      </a>
+
+      <!-- Roblox -->
+      <!-- SUBSTITUA: href="https://www.roblox.com/games/SEU_GAME_ID" -->
+      <a href="https://www.roblox.com/games/SEU_GAME_ID" target="_blank" rel="noopener"
+         class="flex items-center gap-2 text-slate-400 hover:text-[#00b2ff] transition-colors duration-200 text-sm font-body">
+        <svg class="w-5 h-5" viewBox="0 0 512 512" fill="currentColor">
+          <path d="M 92 92 L 185 419 L 421 349 L 327 22 Z M 213 170 L 306 148 L 328 231 L 234 253 Z"/>
+        </svg>
+        Roblox
+      </a>
+
+    </div>
+
+    <!-- Aviso Alpha -->
+    <div class="flex justify-center mb-6">
+      <div class="flex items-center gap-2 bg-orange/10 border border-orange/20 text-orange text-xs font-body font-500 px-4 py-2 rounded-full tracking-wider">
+        <span class="w-2 h-2 bg-orange rounded-full animate-pulse"></span>
+        O jogo está em fase Alpha — funcionalidades e visuais podem mudar.
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider mb-6"></div>
+
+    <!-- Copyright -->
+    <div class="text-center">
+      <!-- =====================================================
+           SUBSTITUA "Seu Nome / Seu Estúdio" pelo seu nome real
+      ===================================================== -->
+      <p class="font-body text-slate-500 text-xs">
+        © 2025 Aurora Frontier · Desenvolvido por
+        <span class="text-slate-400 font-500">Seu Nome / Seu Estúdio</span>
+        · Todos os direitos reservados.
+      </p>
+      <p class="font-body text-slate-600 text-xs mt-2">
+        Não afiliado ao Roblox Corporation ou Katarina (Shangri-La Frontier).
+      </p>
+    </div>
+
+  </div>
+</footer>
+<!-- /FOOTER -->
+
+
+<!-- ============================================================
+     JAVASCRIPT — Scroll reveal animation
+============================================================ -->
+<script>
+  // Intersection Observer para as animações de scroll (.reveal)
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target); // dispara só uma vez
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Remove o placeholder do hero se houver um bg-image definido
+  const heroBg = document.getElementById('hero-bg-image');
+  const heroPlaceholder = document.getElementById('hero-placeholder');
+  if (heroBg && heroBg.style.backgroundImage && heroBg.style.backgroundImage !== 'none') {
+    if (heroPlaceholder) heroPlaceholder.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
