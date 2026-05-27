@@ -518,6 +518,122 @@
       background: var(--border-2);
       align-self: center;
     }
+    /* =============================================
+      DISCORD BENEFITS SECTION
+    ============================================= */
+    .benefits-section {
+      padding: 80px 20px;
+      background-color: var(--void-2); /* Usa sua variável de fundo escuro */
+      position: relative;
+      z-index: 10;
+    }
+
+    .benefits-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .section-title span {
+      color: #9b30f7; /* Seu tom de roxo principal */
+    }
+
+    .section-subtitle {
+      font-family: 'Exo 2', sans-serif;
+      color: #a1a1aa;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      line-height: 1.6;
+    }
+
+    /* Grid layout para os cartões */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    /* Estilo individual de cada cartão */
+    .benefit-card {
+      background-color: var(--surface); /* Sua variável de card/superfície */
+      border: 1px solid rgba(155, 48, 247, 0.3); /* Borda roxa sutil */
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(155, 48, 247, 0.2);
+      border-color: rgba(155, 48, 247, 0.8);
+    }
+
+    /* Imagem do Fanwall */
+    .benefit-img-wrapper {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-bottom: 2px solid rgba(155, 48, 247, 0.3);
+    }
+
+    .benefit-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .benefit-card:hover .benefit-img {
+      transform: scale(1.05); /* Efeito de zoom suave ao passar o mouse */
+    }
+
+    /* Estilo para os ícones dos cards 2 e 3 */
+    .benefit-icon-wrapper {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+      border-bottom: 2px solid rgba(155, 48, 247, 0.3);
+    }
+
+    .benefit-icon {
+      width: 80px;
+      height: 80px;
+      color: #9b30f7; /* Cor roxa do ícone */
+      filter: drop-shadow(0 0 10px rgba(155, 48, 247, 0.5)); /* Brilho neon */
+    }
+
+    /* Textos dentro do cartão */
+    .benefit-content {
+      padding: 25px;
+      text-align: left;
+      flex-grow: 1;
+    }
+
+    .benefit-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #e2e8f0;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .benefit-desc {
+      font-family: 'Exo 2', sans-serif;
+      color: #94a3b8;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
 
     /* Scroll indicator */
     .scroll-indicator {
@@ -1398,6 +1514,7 @@
     <li><a href="#features" data-en="Features" data-pt="Mecânicas">Features</a></li>
     <li><a href="#gallery" data-en="Gallery" data-pt="Galeria">Gallery</a></li>
     <li><a href="#bosses" data-en="Bosses" data-pt="Bosses">Bosses</a></li>
+    <li><a href="#discord-benefits" data-en="Discord" data-pt="Discord">Discord</a></li>
     <li><a href="#join" data-en="Community" data-pt="Comunidade">Community</a></li>
   </ul>
 
@@ -1419,6 +1536,7 @@
   <a href="#features" data-en="Features" data-pt="Mecânicas">Features</a>
   <a href="#gallery" data-en="Gallery" data-pt="Galeria">Gallery</a>
   <a href="#bosses" data-en="Bosses" data-pt="Bosses">Bosses</a>
+  <a href="#discord-benefits" data-en="Discord" data-pt="Discord">Discord</a>
   <a href="#join" data-en="Community" data-pt="Comunidade">Community</a>
   <div class="mobile-menu-bottom">
     <div class="lang-toggle">
@@ -1475,11 +1593,6 @@
         <div class="hero-stat-label" data-en="Target Launch" data-pt="Lançamento Previsto">Target Launch</div>
       </div>
     </div>
-  </div>
-
-  <div class="scroll-indicator">
-    <div class="scroll-line"></div>
-    <span data-en="Scroll" data-pt="Rolar">Scroll</span>
   </div>
 </section>
 
@@ -1643,6 +1756,49 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<section id="discord-benefits" class="benefits-section">
+  <div class="benefits-container">
+    <h2 class="section-title">Exclusive <span>Discord</span> Benefits</h2>
+    <p class="section-subtitle">Join the Vanguard. Become an official member of our Discord server and unlock exclusive perks in the Aurora Frontier universe.</p>
+
+    <div class="benefits-grid">
+      
+      <div class="benefit-card">
+        <div class="benefit-img-wrapper">
+          <img src="fanwall.png" alt="In-game Fanart Wall" class="benefit-img">
+        </div>
+        <div class="benefit-content">
+          <h3 class="benefit-title">Immortalize Your Art</h3>
+          <p class="benefit-desc">Create fanarts and submit them to our community. The best pieces are framed and displayed permanently inside the game on our legendary Fan Wall!</p>
+        </div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrapper">
+          <svg class="benefit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </div>
+        <div class="benefit-content">
+          <h3 class="benefit-title">Become a QA Tester</h3>
+          <p class="benefit-desc">Want to work on the game's quality? Request the exclusive Tester role, hunt for bugs, and help shape the perfect combat experience before anyone else.</p>
+        </div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrapper">
+          <svg class="benefit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+        </div>
+        <div class="benefit-content">
+          <h3 class="benefit-title">Inside Intel & Release</h3>
+          <p class="benefit-desc">Get first-hand access to development logs, sneak peeks of massive bosses, and be the first to know our official launch date.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
