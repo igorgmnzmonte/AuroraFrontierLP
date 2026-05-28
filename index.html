@@ -1764,18 +1764,63 @@
 
 <section id="discord-benefits" class="benefits-section">
   <div class="benefits-container">
-    <h2 class="section-title">Exclusive <span>Discord</span> Benefits</h2>
-    <p class="section-subtitle">Join the Vanguard. Become an official member of our Discord server and unlock exclusive perks in the Aurora Frontier universe.</p>
+    <h2 class="section-title" data-en="Exclusive <span>Discord</span> Benefits" data-pt="Benefícios Exclusivos do <span>Discord</span>">Exclusive <span>Discord</span> Benefits</h2>
+    <p class="section-subtitle" data-en="Join the Vanguard. Become an official member of our Discord server and unlock exclusive perks in the Aurora Frontier universe." data-pt="Junte-se à Vanguarda. Torne-se um membro oficial do nosso servidor Discord e desbloqueie vantagens exclusivas no universo de Aurora Frontier.">Join the Vanguard. Become an official member of our Discord server and unlock exclusive perks in the Aurora Frontier universe.</p>
+
+    <!-- Discord Member Counter -->
+    <div id="discord-stats" style="
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    ">
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--surface);
+        border: 1px solid rgba(155,48,247,0.3);
+        border-radius: 12px;
+        padding: 14px 24px;
+        min-width: 160px;
+        justify-content: center;
+      ">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="rgba(155,48,247,0.8)" style="flex-shrink:0"><circle cx="10" cy="7" r="4"/><path d="M2 17c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+        <div>
+          <div id="discord-total" style="font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:var(--gold);text-shadow:0 0 16px var(--gold-glow);line-height:1">—</div>
+          <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-3);font-weight:600;margin-top:3px" data-en="Total Members" data-pt="Total de Membros">Total Members</div>
+        </div>
+      </div>
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--surface);
+        border: 1px solid rgba(82,229,138,0.25);
+        border-radius: 12px;
+        padding: 14px 24px;
+        min-width: 160px;
+        justify-content: center;
+      ">
+        <span style="width:10px;height:10px;background:#52e58a;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px rgba(82,229,138,0.6);animation:pulse-dot 2s ease-in-out infinite"></span>
+        <div>
+          <div id="discord-online" style="font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:#52e58a;text-shadow:0 0 16px rgba(82,229,138,0.4);line-height:1">—</div>
+          <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-3);font-weight:600;margin-top:3px" data-en="Online Now" data-pt="Online Agora">Online Now</div>
+        </div>
+      </div>
+    </div>
 
     <div class="benefits-grid">
       
       <div class="benefit-card">
         <div class="benefit-img-wrapper">
-          <img src="fanwall.png" alt="In-game Fanart Wall" class="benefit-img">
+          <img src="fanwall.png" alt="In-game Fan Art Wall" class="benefit-img">
         </div>
         <div class="benefit-content">
-          <h3 class="benefit-title">Immortalize Your Art</h3>
-          <p class="benefit-desc">Create fanarts and submit them to our community. The best pieces are framed and displayed permanently inside the game on our legendary Fan Wall!</p>
+          <h3 class="benefit-title" data-en="Immortalize Your Art" data-pt="Imortalizar sua Arte">Immortalize Your Art</h3>
+          <p class="benefit-desc" data-en="Create fan art and submit it to our community. The best pieces are framed and displayed permanently inside the game on our legendary Fan Wall!" data-pt="Crie fan arts e envie para nossa comunidade. As melhores peças são emolduradas e exibidas permanentemente dentro do jogo no nosso lendário Fan Wall!">Create fan art and submit it to our community. The best pieces are framed and displayed permanently inside the game on our legendary Fan Wall!</p>
         </div>
       </div>
 
@@ -1784,8 +1829,8 @@
           <svg class="benefit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
         </div>
         <div class="benefit-content">
-          <h3 class="benefit-title">Become a QA Tester</h3>
-          <p class="benefit-desc">Want to work on the game's quality? Request the exclusive Tester role, hunt for bugs, and help shape the perfect combat experience before anyone else.</p>
+          <h3 class="benefit-title" data-en="Become a QA Tester" data-pt="Torne-se um Testador QA">Become a QA Tester</h3>
+          <p class="benefit-desc" data-en="Want to help improve the game's quality? Request the exclusive Tester role, hunt for bugs, and help shape the perfect combat experience before anyone else." data-pt="Quer ajudar a melhorar a qualidade do jogo? Solicite o cargo exclusivo de Testador, caçe bugs e ajude a moldar a experiência de combate perfeita antes de todo mundo.">Want to help improve the game's quality? Request the exclusive Tester role, hunt for bugs, and help shape the perfect combat experience before anyone else.</p>
         </div>
       </div>
 
@@ -1794,8 +1839,8 @@
           <svg class="benefit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
         </div>
         <div class="benefit-content">
-          <h3 class="benefit-title">Inside Intel & Release</h3>
-          <p class="benefit-desc">Get first-hand access to development logs, sneak peeks of massive bosses, and be the first to know our official launch date.</p>
+          <h3 class="benefit-title" data-en="Insider Intel & Early Access" data-pt="Intel Interno & Acesso Antecipado">Insider Intel & Early Access</h3>
+          <p class="benefit-desc" data-en="Get first-hand access to development logs, sneak peeks of massive bosses, and be the first to know our official launch date." data-pt="Tenha acesso em primeira mão aos logs de desenvolvimento, prévias de bosses gigantescos e seja o primeiro a saber nossa data oficial de lançamento.">Get first-hand access to development logs, sneak peeks of massive bosses, and be the first to know our official launch date.</p>
         </div>
       </div>
 
@@ -1882,7 +1927,7 @@
 
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = val;
-      } else if (val.includes('<br>')) {
+      } else if (val.includes('<')) {
         el.innerHTML = val;
       } else {
         el.textContent = val;
@@ -2038,6 +2083,44 @@
       }
     }, { passive: true });
   }
+
+  // ================================================
+  // DISCORD MEMBER COUNT
+  // Uses the public Discord invite API (no auth needed)
+  // ================================================
+  async function fetchDiscordStats() {
+    const totalEl  = document.getElementById('discord-total');
+    const onlineEl = document.getElementById('discord-online');
+
+    try {
+      // Fetch invite with approximate_counts=true — works cross-origin via Discord's public API
+      const res = await fetch(
+        'https://discord.com/api/v9/invites/aurora-frontier?with_counts=true&with_expiration=true',
+        { headers: { 'Accept': 'application/json' } }
+      );
+      if (!res.ok) throw new Error('API error ' + res.status);
+      const data = await res.json();
+
+      const total  = data.approximate_member_count  ?? null;
+      const online = data.approximate_presence_count ?? null;
+
+      if (total !== null) {
+        totalEl.textContent  = total.toLocaleString();
+      }
+      if (online !== null) {
+        onlineEl.textContent = online.toLocaleString();
+      }
+    } catch (err) {
+      // If fetch fails (e.g. ad-blocker, CORS on some browsers), show a fallback link
+      console.warn('Discord stats unavailable:', err);
+      totalEl.textContent  = '—';
+      onlineEl.textContent = '—';
+    }
+  }
+
+  fetchDiscordStats();
+  // Refresh every 5 minutes
+  setInterval(fetchDiscordStats, 5 * 60 * 1000);
 </script>
 </body>
 </html>
